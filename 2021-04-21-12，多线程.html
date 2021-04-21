@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sweeneyzhou.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一，概念 进程：正在运行的程序 线程：是进程中的一个执行单元（一条执行路径），一个进程至少包含一条线程。如果一个进程包含多个线程，这种程序就叫多线程程序 并发：两件事同时进行 并行：两件事同时发生 线程的调度：  分时调度：所有线程轮流使用CPU，每个线程平均分配CPU的执行权 抢占式调度：优先让优先级高的线程执行，优先级相同时，CPU随机分配执行权，Java 中多线程的执行方式就是抢占式的  注">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程">
+<meta property="og:url" content="https://sweeneyzhou.github.io/2021-04-21-12%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B.html">
+<meta property="og:site_name" content="格物志">
+<meta property="og:description" content="一，概念 进程：正在运行的程序 线程：是进程中的一个执行单元（一条执行路径），一个进程至少包含一条线程。如果一个进程包含多个线程，这种程序就叫多线程程序 并发：两件事同时进行 并行：两件事同时发生 线程的调度：  分时调度：所有线程轮流使用CPU，每个线程平均分配CPU的执行权 抢占式调度：优先让优先级高的线程执行，优先级相同时，CPU随机分配执行权，Java 中多线程的执行方式就是抢占式的  注">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T01:01:41.902Z">
+<meta property="article:modified_time" content="2021-04-21T01:28:23.798Z">
+<meta property="article:author" content="Sweeney Zhou">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="Thread">
+<meta property="article:tag" content="Runnable接口">
+<meta property="article:tag" content="线程安全">
+<meta property="article:tag" content="同步技术">
+<meta property="article:tag" content="同步代码块">
+<meta property="article:tag" content="同步函数">
+<meta property="article:tag" content="Synchronized">
+<meta property="article:tag" content="Lock锁">
+<meta property="article:tag" content="线程池">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sweeneyzhou.github.io/2021-04-21-12%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>多线程 | 格物志</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="格物志" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">格物志</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">格物致知 知行合一</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sweeneyzhou.github.io/2021-04-21-12%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sweeney Zhou">
+      <meta itemprop="description" content="探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="格物志">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多线程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-21 09:01:41 / 修改时间：09:28:23" itemprop="dateCreated datePublished" datetime="2021-04-21T09:01:41+08:00">2021-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">后端编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一，概念"><a href="#一，概念" class="headerlink" title="一，概念"></a>一，概念</h3><blockquote>
+<p>进程：正在运行的程序</p>
+<p>线程：是进程中的一个执行单元（一条执行路径），一个进程至少包含一条线程。如果一个进程包含多个线程，这种程序就叫多线程程序</p>
+<p>并发：两件事同时进行</p>
+<p>并行：两件事同时发生</p>
+<p>线程的调度：</p>
+<ol>
+<li>分时调度：所有线程轮流使用CPU，每个线程平均分配CPU的执行权</li>
+<li>抢占式调度：优先让优先级高的线程执行，优先级相同时，CPU随机分配执行权，Java 中多线程的执行方式就是抢占式的</li>
+</ol>
+<p>注：Java 程序在没有额外开启线程的情况下也有两个线程：主函数所在的主线程、垃圾回收线程</p>
+</blockquote>
+<h3 id="二，创建线程"><a href="#二，创建线程" class="headerlink" title="二，创建线程"></a>二，创建线程</h3><h4 id="2-1-继承-Thread-类"><a href="#2-1-继承-Thread-类" class="headerlink" title="2.1 继承 Thread 类"></a>2.1 继承 Thread 类</h4><blockquote>
+<p>步骤：</p>
+<ol>
+<li>定义类继承 Thread 类</li>
+<li>重写 run() 方法，在 run() 方法中的功能就是线程要执行的功能</li>
+<li>创建 Thread 的子类对象</li>
+<li>调用 start() 方法开启线程，Java 虚拟机自动调用该线程的 run() 方法。</li>
+</ol>
+<p>注：同一个线程对象不能重复调用 start()，否则会发生 IllegalThreadStateException</p>
+</blockquote>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyThread mt = <span class="keyword">new</span> MyThread();</span><br><span class="line">        mt.start();</span><br><span class="line">        MyThread mt2 = <span class="keyword">new</span> MyThread();</span><br><span class="line">        mt2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-----&quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="2-2-实现-Runnable-接口"><a href="#2-2-实现-Runnable-接口" class="headerlink" title="2.2 实现 Runnable 接口"></a>2.2 实现 Runnable 接口</h4><blockquote>
+<p>步骤：</p>
+<ol>
+<li>定义类实现 Runnable 接口</li>
+<li>重写 run() 方法，在 run() 方法中的功能就是线程要执行的功能</li>
+<li>创建该实现类的对象</li>
+<li>创建 Thread 对象，并将实现类的对象作为参数传递给 Thread 的构造函数</li>
+<li>调用 start() 方法开启线程，Java 虚拟机自动调用该线程的 run() 方法。</li>
+</ol>
+</blockquote>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyRunnable mr = <span class="keyword">new</span> MyRunnable();</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread(mr);</span><br><span class="line">        t.start();</span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(mr);</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-----&quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>注：建议优先选用实现 Runnable 的方式，因为避免了单继承的局限性</p>
+</blockquote>
+<h4 id="2-3-使用匿名内部类创建线程并开启"><a href="#2-3-使用匿名内部类创建线程并开启" class="headerlink" title="2.3 使用匿名内部类创建线程并开启"></a>2.3 使用匿名内部类创建线程并开启</h4><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-----&quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.start();</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-----&quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="三，线程安全问题"><a href="#三，线程安全问题" class="headerlink" title="三，线程安全问题"></a>三，线程安全问题</h3><blockquote>
+<p>什么是线程安全：如果多个线程并发执行，这些线程操作共享数据，运行后的结果与单线程运行后的结果是相同的，就称为线程是安全的。</p>
+<p>以下代码出现了线程安全问题：限制了ticket &gt; 0的条件，但是最终输出的ticket出现的0和负数，因为某条线程在执行的过程中被其他线程抢夺了CPU的执行权。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> ticket = <span class="number">100</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ticket &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot;正在卖第&quot;</span>+ (ticket)+<span class="string">&quot;号票&quot;</span>);</span><br><span class="line">                ticket--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ticket = <span class="number">100</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ticket &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot;正在卖第&quot;</span>+ (ticket)+<span class="string">&quot;号票&quot;</span>);</span><br><span class="line">                ticket--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="四，同步技术"><a href="#四，同步技术" class="headerlink" title="四，同步技术"></a>四，同步技术</h3><blockquote>
+<p>关键字：<code>synchronized</code></p>
+</blockquote>
+<h4 id="4-1-同步代码块"><a href="#4-1-同步代码块" class="headerlink" title="4.1 同步代码块"></a>4.1 同步代码块</h4><blockquote>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(锁对象)&#123;</span><br><span class="line">    <span class="comment">// 可能发生线程安全问题的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>同步代码块中的锁对象（同步锁）可以是任意类型的</li>
+<li>必须保证多个线程使用的锁对象是同一个</li>
+<li>锁对象的作用：将同步代码块锁定，同一时间只允许让一个线程进入同步代码块，只要有一个线程抢夺到了CPU的执行权，只有当该线程执行完毕后，其他线程才能继续抢夺CPU的执行权，否则就处于等待状态。</li>
+</ol>
+</blockquote>
+<h4 id="4-2-同步函数"><a href="#4-2-同步函数" class="headerlink" title="4.2 同步函数"></a>4.2 同步函数</h4><blockquote>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> 返回类型 方法名(参数列表)&#123;</span><br><span class="line">    <span class="comment">// 可能发生线程安全问题的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li><p>同步函数中有锁对象吗？有，同步函数中的锁对象是 this</p>
+</li>
+<li><p>如果使用的是继承 Thread 的方式创建线程，同步函数必须是静态的</p>
+<p>静态同步函数的锁对象是谁？锁是<code>类名.class</code> 二进制字节码文件对象</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="4-3-Lock-锁"><a href="#4-3-Lock-锁" class="headerlink" title="4.3 Lock 锁"></a>4.3 Lock 锁</h4><blockquote>
+<p>概念：Lock 是一个接口，在 JDK1.5 出现，Lock 实现提供了比使用 synchronized  方法和语句可获得的更广泛的锁定操作。此实现允许更灵活的结构。</p>
+<p>方法：</p>
+<ol>
+<li>lock()：获取锁</li>
+<li>unlock()：释放锁</li>
+</ol>
+<p>步骤：</p>
+<ol>
+<li>在成员位置创建 Lock 接口的实现类对象 ReentrantLock</li>
+<li>在可能发生线程安全问题的代码前调用 lock()</li>
+<li>在可能发生线程安全问题的代码后调用 unlock()</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>同步技术的原理：</p>
+<p>同步技术中使用到的锁对象，这个锁对象也称为同步锁</p>
+<p>多个线程一起抢夺CPU的执行权</p>
+<p>​    获取到锁对象的线程，进入同步，当这个线程执行完同步中的代码后，释放锁；</p>
+<p>​    没有获取到锁对象的线程，会处于阻塞状态，等待同步中的线程执行完毕后释放锁；</p>
+<p>使用同步技术会影响程序的执行效率：</p>
+<p>判断锁、获取锁、释放锁</p>
+</blockquote>
+<h3 id="五，线程池"><a href="#五，线程池" class="headerlink" title="五，线程池"></a>五，线程池</h3><blockquote>
+<p>概念：线程池的本质就是一个容器，在该容器中存放着若干线程对象，当有任务需要使用线程对象时，直接从池中获取线程对象，当任务执行完毕后，将使用完的线程对象归还到池中，从而提高了线程对象的复用性，减少了线程对象的创建。</p>
+<p>线程池的好处：</p>
+<ol>
+<li>减低了资源的消耗。减少了创建和销毁线程的次数，每个线程对象都可以被复用</li>
+<li>提高了响应速度</li>
+<li>提高了对线程的管理</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>核心类：Executors，线程池的工厂类，用于生产线程池</p>
+<p>Executors 类中提供了生产线程池的静态方法 newFixedThreadPool(int nThreads)，创建一个有固定数量线程对象的线程池，返回 ExecutorService 接口的实现类。</p>
+<p>ExecutorService 接口中提供获取线程对象的功能 submit(Runnable r)，调用此功能会开启线程并执行 Runnable 实现类中的 run() 方法</p>
+</blockquote>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MyRunnable1 mr1 = <span class="keyword">new</span> MyRunnable1();</span><br><span class="line">MyRunnable2 mr2 = <span class="keyword">new</span> MyRunnable2();</span><br><span class="line">MyRunnable3 mr3 = <span class="keyword">new</span> MyRunnable3();</span><br><span class="line"></span><br><span class="line">ExecutorService service = Executors.newFixedThreadPool(<span class="number">2</span>);</span><br><span class="line">service.submit(mr1);</span><br><span class="line">service.submit(mr2);</span><br><span class="line">service.submit(mr3);</span><br><span class="line">service.shutdown();<span class="comment">// 关闭线程池</span></span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>如果要开启线程执行的任务超过池中线程对象的数量，没有执行的任务会等待其他任务执行完毕归还线程对象再执行它的任务</li>
+<li>即使线程对象已经全部归还，线程池仍然处于开启状态，因为线程池在等待可能还有其他任务需要使用池中对象，我们可以手动调用 shutdown() 来强制关闭池，一旦池被关闭了，再从池中获取连接对象就会发生 RejectedExecutionException。</li>
+</ol>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+              <a href="/tags/Thread/" rel="tag"># Thread</a>
+              <a href="/tags/Runnable%E6%8E%A5%E5%8F%A3/" rel="tag"># Runnable接口</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" rel="tag"># 线程安全</a>
+              <a href="/tags/%E5%90%8C%E6%AD%A5%E6%8A%80%E6%9C%AF/" rel="tag"># 同步技术</a>
+              <a href="/tags/%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81%E5%9D%97/" rel="tag"># 同步代码块</a>
+              <a href="/tags/%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0/" rel="tag"># 同步函数</a>
+              <a href="/tags/Synchronized/" rel="tag"># Synchronized</a>
+              <a href="/tags/Lock%E9%94%81/" rel="tag"># Lock锁</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag"># 线程池</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-04-21-11%EF%BC%8C%E6%96%87%E4%BB%B6%E3%80%81IO%E6%B5%81.html" rel="prev" title="文件操作、IO流">
+      <i class="fa fa-chevron-left"></i> 文件操作、IO流
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-04-21-13%EF%BC%8C%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.html" rel="next" title="网络编程">
+      网络编程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%EF%BC%8C%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一，概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%EF%BC%8C%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">二，创建线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E7%BB%A7%E6%89%BF-Thread-%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 继承 Thread 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%AE%9E%E7%8E%B0-Runnable-%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 实现 Runnable 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%BC%80%E5%90%AF"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 使用匿名内部类创建线程并开启</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%EF%BC%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">三，线程安全问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%EF%BC%8C%E5%90%8C%E6%AD%A5%E6%8A%80%E6%9C%AF"><span class="nav-number">4.</span> <span class="nav-text">四，同步技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 同步代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 同步函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Lock-%E9%94%81"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 Lock 锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%EF%BC%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">5.</span> <span class="nav-text">五，线程池</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sweeney Zhou</p>
+  <div class="site-description" itemprop="description">探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:sweeneyzhou@gmail.com" title="E-Mail → mailto:sweeneyzhou@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sweeney Zhou</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>

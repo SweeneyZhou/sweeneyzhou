@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sweeneyzhou.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一，Java的概述和环境搭建1.1 什么是程序 程序：解决生活中实际问题的由一系列指令组成的集合，即是软件、APP 程序开发：制作软件  1.2 Java的历史与特点 1995年由SUN公司开发的面向对象的程序设计语言，创始人高斯林称作Java之父 Java：JavaME、JavaSE、JavaEE 2004年发布JDK1.5，更名为Java5 2009年被Oracle收购 2014年Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的概述和环境搭建">
+<meta property="og:url" content="https://sweeneyzhou.github.io/2021-04-21-Java%E6%A6%82%E8%BF%B0%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html">
+<meta property="og:site_name" content="格物志">
+<meta property="og:description" content="一，Java的概述和环境搭建1.1 什么是程序 程序：解决生活中实际问题的由一系列指令组成的集合，即是软件、APP 程序开发：制作软件  1.2 Java的历史与特点 1995年由SUN公司开发的面向对象的程序设计语言，创始人高斯林称作Java之父 Java：JavaME、JavaSE、JavaEE 2004年发布JDK1.5，更名为Java5 2009年被Oracle收购 2014年Oracle">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-20T18:22:36.961Z">
+<meta property="article:modified_time" content="2021-04-21T01:06:43.469Z">
+<meta property="article:author" content="Sweeney Zhou">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sweeneyzhou.github.io/2021-04-21-Java%E6%A6%82%E8%BF%B0%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java的概述和环境搭建 | 格物志</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="格物志" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">格物志</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">格物致知 知行合一</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sweeneyzhou.github.io/2021-04-21-Java%E6%A6%82%E8%BF%B0%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sweeney Zhou">
+      <meta itemprop="description" content="探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="格物志">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java的概述和环境搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-21 02:22:36 / 修改时间：09:06:43" itemprop="dateCreated datePublished" datetime="2021-04-21T02:22:36+08:00">2021-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">后端编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一，Java的概述和环境搭建"><a href="#一，Java的概述和环境搭建" class="headerlink" title="一，Java的概述和环境搭建"></a>一，Java的概述和环境搭建</h3><h4 id="1-1-什么是程序"><a href="#1-1-什么是程序" class="headerlink" title="1.1 什么是程序"></a>1.1 什么是程序</h4><blockquote>
+<p>程序：解决生活中实际问题的由一系列指令组成的集合，即是软件、APP</p>
+<p>程序开发：制作软件</p>
+</blockquote>
+<h4 id="1-2-Java的历史与特点"><a href="#1-2-Java的历史与特点" class="headerlink" title="1.2 Java的历史与特点"></a>1.2 Java的历史与特点</h4><blockquote>
+<p>1995年由SUN公司开发的面向对象的程序设计语言，创始人<code>高斯林</code>称作<code>Java之父</code></p>
+<p>Java：JavaME、JavaSE、JavaEE</p>
+<p>2004年发布JDK1.5，更名为Java5</p>
+<p>2009年被Oracle收购</p>
+<p>2014年Oracle发布Java8</p>
+<p>特点：</p>
+<ol>
+<li>面向对象</li>
+<li>跨平台性：跨操作系统、服务器</li>
+<li>安全性</li>
+<li>健壮性</li>
+</ol>
+</blockquote>
+<h4 id="1-3-Java的运行机制"><a href="#1-3-Java的运行机制" class="headerlink" title="1.3 Java的运行机制"></a>1.3 Java的运行机制</h4><blockquote>
+<p>先编译，后运行</p>
+<p><code>.java文件（编译）-&gt;.class二进制字节码文件（运行）</code></p>
+<p>JDK：Java Development Kit，Java开发工具</p>
+<p>​    包含：JRE + 类库 + 工具包（编译器、调试工具）</p>
+<p>JRE：Java Runtime Enviroment，Java运行环境</p>
+<p>​    包含：JVM + 解释器</p>
+<p>JVM：Java Vitrual Machine，Java虚拟机</p>
+<p>​    使用软件在不同的操作系统中，模拟相同的Java运行环境，使Java程序得以运行</p>
+</blockquote>
+<h4 id="1-4-Java的环境搭建"><a href="#1-4-Java的环境搭建" class="headerlink" title="1.4 Java的环境搭建"></a>1.4 Java的环境搭建</h4><blockquote>
+<p>JDK的下载：<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-downloads.html">https://www.oracle.com/java/technologies/javase-downloads.html</a></p>
+<p>卸载：控制面板直接卸载即可</p>
+<p>安装：双击即可，不要安装在有中文的路径下，jdk和jre要保持在同一个目录下</p>
+<p>环境变量的配置：</p>
+<ol>
+<li>右键“此电脑”，点击“属性”，点击“高级系统设置”，在“高级”标签下，选择“环境变量”</li>
+<li>在“系统变量”中，点击“新建”，在“变量名”中输入<code>JAVA_HOME</code>，在“变量值”中输入<code>C:\Program Files\Java\jdk1.8.0_152</code></li>
+<li>点击“系统变量”中“Path”，点击“编辑”，添加<code>%JAVA_HOME%\bin</code>和<code>%JAVA_HOME%\jre\bin</code></li>
+</ol>
+</blockquote>
+<h4 id="1-5-第一个Java程序"><a href="#1-5-第一个Java程序" class="headerlink" title="1.5 第一个Java程序"></a>1.5 第一个Java程序</h4><h5 id="1-5-1-编写代码"><a href="#1-5-1-编写代码" class="headerlink" title="1.5.1 编写代码"></a>1.5.1 编写代码</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;五五开&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Java文件的扩展名是<code>.java</code></p>
+</blockquote>
+<h5 id="1-5-2-编译代码"><a href="#1-5-2-编译代码" class="headerlink" title="1.5.2 编译代码"></a>1.5.2 编译代码</h5><blockquote>
+<p>通过<code>javac</code>指令对Java文件进行编译，编译后会生成对应的<code>.class</code>二进制字节码文件</p>
+<p>步骤：</p>
+<ol>
+<li><p>按下<code>win + r</code>，输入<code>cmd</code>，按下回车，打开命令提示符 </p>
+</li>
+<li><p>输入：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd java文件所在的位置</span><br></pre></td></tr></table></figure>
+
+<p>切换cmd的执行指令的位置是在当前Java文件所在的位置</p>
+</li>
+<li><p>输入：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac 文件名.java</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h5 id="1-5-3-运行程序"><a href="#1-5-3-运行程序" class="headerlink" title="1.5.3 运行程序"></a>1.5.3 运行程序</h5><blockquote>
+<p>通过<code>java</code>指令对编译后的<code>.class</code>执行，从而运行程序</p>
+<p>在上述的cmd中继续输入：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java 文件名</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="1-5-4-注意事项"><a href="#1-5-4-注意事项" class="headerlink" title="1.5.4 注意事项"></a>1.5.4 注意事项</h5><blockquote>
+<ol>
+<li><p>同一个Java文件可以定义多个类，但是只能有一个类是<code>public</code>的，并且该文件的文件名必须与这个被<code>public</code>修饰的类的类名一致</p>
+</li>
+<li><p>任何一个类在被编译后都会生成一个唯一的<code>.class</code>文件</p>
+</li>
+<li><p>一个类中，只能有一个主方法，每个类都可以有自己的主方法</p>
+</li>
+<li><p>Java代码都是以<code>;</code>和<code>&#125;</code>结尾</p>
+</li>
+<li><p>Java中所有的括号必须成对出现</p>
+</li>
+<li><p>任何一个程序必须有一个主函数，主函数也叫主方法是程序的入口，主函数必须被定义成如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>层级之间必须有良好的缩进</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="1-6-Java的语言规范"><a href="#1-6-Java的语言规范" class="headerlink" title="1.6 Java的语言规范"></a>1.6 Java的语言规范</h4><h5 id="1-6-1-注释"><a href="#1-6-1-注释" class="headerlink" title="1.6.1 注释"></a>1.6.1 注释</h5><blockquote>
+<p>注释：对代码进行解释说明的文本</p>
+<p>单行注释：// 注释内容</p>
+<p>多行注释：/* 注释内容 */</p>
+<p>文档注释：/** 注释内容 */，有文档注释的代码，可以通过以下指令生成外部文档API</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javadoc -d . HelloWorld.java</span><br></pre></td></tr></table></figure>
+
+<p>注：注释不参与编译、运行</p>
+</blockquote>
+<h5 id="1-6-2-关键字"><a href="#1-6-2-关键字" class="headerlink" title="1.6.2 关键字"></a>1.6.2 关键字</h5><blockquote>
+<p>概念：在Java中已经预先定义好的具有特殊含义的单词</p>
+<p>例如：public、class、static、void</p>
+<p>注：main不是关键字</p>
+</blockquote>
+<h5 id="1-6-3-标识符"><a href="#1-6-3-标识符" class="headerlink" title="1.6.3 标识符"></a>1.6.3 标识符</h5><blockquote>
+<p>概念：类、方法、变量的名字都是标识符</p>
+<p>规则：</p>
+<ol>
+<li>可以由数字、字母、下划线、美元符组成</li>
+<li>数字不能开头</li>
+<li>不能与关键字重名</li>
+</ol>
+<p>规范：</p>
+<ol>
+<li>变量和方法：首字母小写，多个单词组成时，从第二个单词起每个单词的首字母大写（小驼峰）</li>
+<li>类和接口：每个单词的首字母大写（大驼峰）</li>
+<li>常量：所有字母大写，多个单词组成时，单词之间用下划线连接</li>
+</ol>
+</blockquote>
+<h3 id="二，Java的基础语法"><a href="#二，Java的基础语法" class="headerlink" title="二，Java的基础语法"></a>二，Java的基础语法</h3><h4 id="2-1-常量"><a href="#2-1-常量" class="headerlink" title="2.1 常量"></a>2.1 常量</h4><blockquote>
+<p>概念：不能变化的数据</p>
+<p>分类：</p>
+<ol>
+<li><p>整数常量：所有整数</p>
+</li>
+<li><p>小数常量：所有小数</p>
+</li>
+<li><p>字符串常量：所有字符串，</p>
+<p>字符串：一串字符，若干个字符组成的有序序列，字符串必须使用一对双引号括起来</p>
+</li>
+<li><p>字符常量：任何一个字符</p>
+<p>例如：’1’、’+’、’a’、’Z’、’是’，由一对单引号括起来的单个字符，不能有空字符</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="2-2-数据类型"><a href="#2-2-数据类型" class="headerlink" title="2.2 数据类型"></a>2.2 数据类型</h4><blockquote>
+<p>在Java中有严格的数据类型的划分（强类型的语言）</p>
+<p>在Java任何一个值，都有所对应的类型</p>
+<p>分类：</p>
+<ol>
+<li>基本数据类型</li>
+<li>引用数据类型</li>
+</ol>
+</blockquote>
+<h5 id="2-2-1-基本数据类型"><a href="#2-2-1-基本数据类型" class="headerlink" title="2.2.1 基本数据类型"></a>2.2.1 基本数据类型</h5><blockquote>
+<ol>
+<li><p>整数类型</p>
+<ol>
+<li>byte：字节型，1个字节，范围：<code>-2^7 ~ 2^7-1 也就是 -128 ~ 127</code></li>
+<li>short：短整型，2个字节，范围：<code>-2^15 ~ 2^15-1 也就是-32768 ~ 32767</code></li>
+<li>int：整型，默认整型，4个字节，范围：<code>-2^31 ~ 2^31-1</code></li>
+<li>long：长整型，8个字节，范围：<code>-2^63 ~ 2^63-1</code></li>
+</ol>
+</li>
+<li><p>小数类型（浮点类型）</p>
+<ol>
+<li><p>float：单精度浮点类型，4个字节，</p>
+<p>负数范围：<code>-3.4E38 ~ -1.4E-45</code> 正数范围：<code>1.4E-45 ~ 3.4E38</code></p>
+</li>
+<li><p>double：双精度浮点类型，8个字节，默认小数</p>
+<p>负数范围：<code>-1.7E308 ~ -4.9E-324</code> 正数范围：<code>4.9E-324 ~ 1.7E308</code></p>
+</li>
+</ol>
+</li>
+<li><p>字符类型</p>
+<ol>
+<li>char：2个字节，范围：<code>0 ~ 65535</code>，它遵循Unicode万国码，字符值必须使用一对单引号括起来，有且只能有一个字符</li>
+</ol>
+</li>
+<li><p>布尔类型</p>
+<ol>
+<li>boolean：1个字节，取值范围：<code>true/false</code>，描述成”满足条件”/“不满足条件”</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h5 id="2-2-2-引用数据类型"><a href="#2-2-2-引用数据类型" class="headerlink" title="2.2.2 引用数据类型"></a>2.2.2 引用数据类型</h5><blockquote>
+<ol>
+<li><p>字符串：Java 程序中的所有字符串字面值（如 <code>&quot;abc&quot;</code> ）都是字符串值，字符串中允许没有字符，称为空字符串，简称空串</p>
+<p>定义格式：同基本数据类型的定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String 变量名<span class="number">1</span> = 值;</span><br><span class="line">String 变量名<span class="number">2</span>;</span><br><span class="line">变量名<span class="number">2</span> = 值;</span><br></pre></td></tr></table></figure></li>
+<li><p>数组</p>
+</li>
+<li><p>对象</p>
+</li>
+</ol>
+</blockquote>
+<h5 id="2-2-3-转义字符"><a href="#2-2-3-转义字符" class="headerlink" title="2.2.3 转义字符"></a>2.2.3 转义字符</h5><blockquote>
+<p>Java中可以通过对特定字符进行转义，来表示其他含义</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&#x27;&#x27;</span><span class="string">&#x27;);// 这句话编译失败，我们需要对中间的单引号进行转义</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>转义符号：<code>\</code></p>
+<p>常见的转义：</p>
+<ol>
+<li><code>\n</code>：换行符</li>
+<li><code>\t</code>：制表符（缩进）</li>
+<li><code>\&#39;</code>：单引号</li>
+<li><code>\&quot;</code>：双引号</li>
+<li><code>\\</code>：反斜杠</li>
+</ol>
+</blockquote>
+<h4 id="2-3-变量"><a href="#2-3-变量" class="headerlink" title="2.3 变量"></a>2.3 变量</h4><h5 id="2-3-1-变量的概念"><a href="#2-3-1-变量的概念" class="headerlink" title="2.3.1 变量的概念"></a>2.3.1 变量的概念</h5><blockquote>
+<p>计算机内存中的一块存储空间，是存储数据的基本单元</p>
+</blockquote>
+<h5 id="2-3-2-变量的定义"><a href="#2-3-2-变量的定义" class="headerlink" title="2.3.2 变量的定义"></a>2.3.2 变量的定义</h5><blockquote>
+<ol>
+<li>先定义，后赋值</li>
+</ol>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据类型 变量名;</span><br><span class="line">变量名 = 值;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>定义的同时赋值</li>
+</ol>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型 变量名 = 值;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>同时为多个同类型的变量定义和赋值</li>
+</ol>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型 变量名<span class="number">1</span>,变量名<span class="number">2</span> = 值,变量名<span class="number">3</span> = 值,变量名<span class="number">4</span>,...;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>注：</p>
+<ol>
+<li>在同一个代码块中变量名不能重复</li>
+<li>变量必须先赋值才能使用</li>
+<li>赋值的类型必须与变量的类型一致</li>
+<li>赋的值必须在指定类型范围中</li>
+<li>将小数赋值给float类型的变量时，需要加上<code>f</code>或者<code>F</code></li>
+<li>一个超过int范围的整数必须加上<code>l</code>或者<code>L</code></li>
+</ol>
+</blockquote>
+<h4 id="2-4-运算符"><a href="#2-4-运算符" class="headerlink" title="2.4 运算符"></a>2.4 运算符</h4><h5 id="2-4-1-算术运算符"><a href="#2-4-1-算术运算符" class="headerlink" title="2.4.1 算术运算符"></a>2.4.1 算术运算符</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+：求和运算，如果参与运算的数据中有字符串，那么“+”就是拼接，拼接后的结果仍然是字符串</span><br><span class="line">-：求差</span><br><span class="line">*：求乘积</span><br><span class="line">/：求商，整数之间的除法可能存在精度损失</span><br><span class="line">%：取模，求余数</span><br><span class="line">    注：</span><br><span class="line">    <span class="number">1.</span>a % b，如果a &lt; b，结果就是a</span><br><span class="line">    <span class="number">2.</span>a % b，如果a &gt; b，结果是[<span class="number">0</span>,b-<span class="number">1</span>]</span><br><span class="line">    <span class="number">3.</span>a % b结果是正负与a一致</span><br><span class="line">++（自增<span class="number">1</span>）、--（自减<span class="number">1</span>）：</span><br><span class="line">    自增和自减的前置和后置：将++、--运算符写在变量前称为前置；反之，称为后置</span><br><span class="line">    <span class="number">1.</span>在单独运算时，前置和后置没有区别</span><br><span class="line">    <span class="number">2.</span>在复合运算时，</span><br><span class="line">    	（<span class="number">1</span>）前置：先执行自增（减），再执行其他操作</span><br><span class="line">    	（<span class="number">2</span>）后置：先执行其他操作，再执行自增（减）</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="2-4-2-赋值运算符"><a href="#2-4-2-赋值运算符" class="headerlink" title="2.4.2 赋值运算符"></a>2.4.2 赋值运算符</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">=：赋值，将=右边表达式的结果运算完毕后，赋值给=左边的变量</span><br><span class="line">+=：a += b 等价于 a = a + b</span><br><span class="line">-=：a -= b 等价于 a = a - b</span><br><span class="line">*=：a *= b 等价于 a = a * b</span><br><span class="line">/=：a /= b 等价于 a = a / b</span><br><span class="line">%=：a %= b 等价于 a = a % b</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="2-4-3-逻辑运算符"><a href="#2-4-3-逻辑运算符" class="headerlink" title="2.4.3 逻辑运算符"></a>2.4.3 逻辑运算符</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp;：与，并且，表达式两边只要出现了<span class="keyword">false</span>，整个表达式的结果就是<span class="keyword">false</span></span><br><span class="line">|：或，或者，表达式两边只要出现了<span class="keyword">true</span>，整个表达式的结果就是<span class="keyword">true</span></span><br><span class="line">!：非，取反，<span class="keyword">true</span>的取反结果是<span class="keyword">false</span>，<span class="keyword">false</span>的取反结果是<span class="keyword">true</span></span><br><span class="line">^：异或，表达式两边相同结果是<span class="keyword">false</span>，两边不同结果是<span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&amp;&amp;：表达式左边为<span class="keyword">false</span>，表达式右边不再运算，整个表达式的结果是<span class="keyword">false</span></span><br><span class="line">||：表达式左边为<span class="keyword">true</span>，表达式右边不再运算，整个表达式的结果是<span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>逻辑运算符参与运算的数据和运算的结果一定是布尔值</li>
+<li>多个布尔值的逻辑运算仍然遵循上述特点</li>
+</ol>
+</blockquote>
+<h5 id="2-4-4-关系运算符"><a href="#2-4-4-关系运算符" class="headerlink" title="2.4.4 关系运算符"></a>2.4.4 关系运算符</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">&lt;</span><br><span class="line">&gt;=</span><br><span class="line">&lt;=</span><br><span class="line">==：比较两个值是否相等</span><br><span class="line">!=：比较两个值是否不相等</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>关系运算符的结果是布尔值</li>
+<li>表达式两边的数据类型必须是相同的，或者可以互相转换的</li>
+</ol>
+</blockquote>
+<h5 id="2-4-5-三元运算符"><a href="#2-4-5-三元运算符" class="headerlink" title="2.4.5 三元运算符"></a>2.4.5 三元运算符</h5><blockquote>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">表达式<span class="number">1</span> ? 表达式<span class="number">2</span> : 表达式<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>逻辑：运算表达式1，结果为true执行表达式2；反之，执行表达式3</p>
+<p>注：</p>
+<ol>
+<li>表达式1运算的结果必须是一个布尔值</li>
+<li>表达式2、表达式3必须执行一个，并且只会执行一个</li>
+<li>表达式2、表达式3可以是值，也可以是表达式，不能是语句</li>
+</ol>
+</blockquote>
+<h5 id="2-4-6-位运算"><a href="#2-4-6-位运算" class="headerlink" title="2.4.6 位运算"></a>2.4.6 位运算</h5><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;：按位与</span><br><span class="line">|：按位或</span><br><span class="line">^：按位异或</span><br></pre></td></tr></table></figure>
+
+<p>将十进制数转换成二进制，按位进行<code>与、或、异或</code>的运算，再将最后的结果转换成十进制数</p>
+<p>转换成的二进制数中的<code>0视作false，1视作true</code>，进行逻辑运算，运算完毕后，再转换成0或1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="number">3</span> &amp; <span class="number">4</span>);</span><br><span class="line">System.out.println(<span class="number">6</span> | <span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="number">4</span> &amp; <span class="number">5</span> | <span class="number">6</span> ^ <span class="number">7</span>);<span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+
+<p>左移：将十进制数转换成二进制数，向左移动指定的位数，移动后用0补全，最后转换成十进制数</p>
+<p>公式：<code>a &lt;&lt; b 等价于 a乘以2的b次方</code></p>
+</blockquote>
+<h4 id="2-5-数据类型转换"><a href="#2-5-数据类型转换" class="headerlink" title="2.5 数据类型转换"></a>2.5 数据类型转换</h4><blockquote>
+<p>问：两种不同类型的数据是否可以一起运算？</p>
+<p>答：可以</p>
+</blockquote>
+<h5 id="2-5-1-自动类型转换"><a href="#2-5-1-自动类型转换" class="headerlink" title="2.5.1 自动类型转换"></a>2.5.1 自动类型转换</h5><blockquote>
+<p>概念：范围小的数据与范围大的数据运算时，结果会自动转换成范围大的数据类型</p>
+<p>自动类型转换的规则：</p>
+<p><code>double &gt; float &gt; long &gt; int &gt; short &gt; byte</code></p>
+<p>注：</p>
+<ol>
+<li></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> b = <span class="number">120</span>;<span class="comment">// 编译通过，原因是120是常量，程序在执行过程中，不会发生变化</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">120</span>;</span><br><span class="line"><span class="keyword">byte</span> c = i;<span class="comment">// 编译失败，原因是i是int类型的变量，程序在执行过程中，i可能发生变化从而超出byte的范围</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>数据类型所占的空间大小（字节）与所能表示的数据范围无关</li>
+</ol>
+</blockquote>
+<h5 id="2-5-2-强制类型转换"><a href="#2-5-2-强制类型转换" class="headerlink" title="2.5.2 强制类型转换"></a>2.5.2 强制类型转换</h5><blockquote>
+<p>概念：范围大的数据赋值给范围小的数据类型的变量</p>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">范围小的数据类型 变量名 = （范围小的数据类型）范围大的数据类型的数据;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li><p>强制类型转换可能出现精度损失、数据错误等问题，所以慎用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f = <span class="number">20.886f</span>;</span><br><span class="line"><span class="keyword">long</span> l = (<span class="keyword">long</span>)f;</span><br><span class="line">System.out.println(l);<span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">byte</span> bb = (<span class="keyword">byte</span>)<span class="number">128</span>;</span><br><span class="line">System.out.println(bb);<span class="comment">// -128</span></span><br></pre></td></tr></table></figure></li>
+<li><p>byte和short之间运算的结果是int</p>
+</li>
+<li><p>如果表达式的运算结果超过了范围，需要对整个表达式的结果进行强制类型转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> b1 = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">byte</span> b2 = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// int b3 = b1 + b2;</span></span><br><span class="line"><span class="keyword">short</span> b3 = (<span class="keyword">short</span>) (b1 + b2);</span><br></pre></td></tr></table></figure></li>
+<li><p>++、–、+=、-=、… 自带强制类型转换</p>
+</li>
+</ol>
+</blockquote>
+<h5 id="2-5-3-char的类型转换"><a href="#2-5-3-char的类型转换" class="headerlink" title="2.5.3 char的类型转换"></a>2.5.3 char的类型转换</h5><blockquote>
+<p>char类型的数据可以与十进制数遵循ASCII码表进行转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">‘<span class="number">0</span>’~‘<span class="number">9</span>’：<span class="number">48</span>~<span class="number">57</span></span><br><span class="line"><span class="string">&#x27;A&#x27;</span>~<span class="string">&#x27;Z&#x27;</span>：<span class="number">65</span>~<span class="number">90</span></span><br><span class="line"><span class="string">&#x27;a&#x27;</span>~<span class="string">&#x27;z&#x27;</span>：<span class="number">97</span>~<span class="number">122</span>    </span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="三，Random、Scanner"><a href="#三，Random、Scanner" class="headerlink" title="三，Random、Scanner"></a>三，Random、Scanner</h3><h4 id="3-1-Random"><a href="#3-1-Random" class="headerlink" title="3.1 Random"></a>3.1 Random</h4><blockquote>
+<p>概念：Random是系统提供的一个专门用于获取伪随机数的一个类，在这个类中提供了一些获取随机数的方法</p>
+<p>使用步骤：</p>
+<ol>
+<li><p>创建对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Random r = <span class="keyword">new</span> Random();</span><br></pre></td></tr></table></figure></li>
+<li><p>调用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d = r.nextDouble();<span class="comment">// 随机产生一个[0.0,1.0)范围内的浮点数</span></span><br><span class="line"><span class="keyword">int</span> num1 = r.nextInt();<span class="comment">// 随机产生一个int范围内的数</span></span><br><span class="line"><span class="keyword">int</span> num2 = r.nextInt(n);<span class="comment">// [0,n)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>注：随机指定范围数据的公式：<code>[a,b]： nextInt(b-a+1)+a</code></p>
+</blockquote>
+<h4 id="3-2-Scanner"><a href="#3-2-Scanner" class="headerlink" title="3.2 Scanner"></a>3.2 Scanner</h4><blockquote>
+<p>概念：Scanner是系统提供的一个专门用于接收键盘输入的类</p>
+<p>使用步骤：</p>
+<ol>
+<li><p>创建对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br></pre></td></tr></table></figure></li>
+<li><p>调用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sc.nextInt();<span class="comment">// 接收键盘输入的整数值</span></span><br><span class="line">sc.nextDouble();<span class="comment">// 接收键盘输入的浮点数</span></span><br><span class="line">sc.next();<span class="comment">// 接收键盘输入的字符串</span></span><br><span class="line">sc.nextLine();<span class="comment">// 接收键盘输入的字符串</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>注：</p>
+<ol>
+<li>next()和nextLine()都用于接收字符串，但是next()不能接收空白字符串</li>
+<li>必须保证所调用方法能接收输入的数据类型，否则会发生<code>InputMisMatchException输入不匹配异常</code></li>
+</ol>
+<p>补：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nextInt(<span class="keyword">int</span> radix)：radix表示进制，</span><br><span class="line">例如：参数是<span class="number">2</span>，也就是nextInt(<span class="number">2</span>)，表示键盘所输入的内容，系统会将其视为一个二进制数，转换成十进制数后返回</span><br></pre></td></tr></table></figure>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021-04-21-02%EF%BC%8C%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6.html" rel="next" title="流程控制">
+      流程控制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%EF%BC%8CJava%E7%9A%84%E6%A6%82%E8%BF%B0%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">一，Java的概述和环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 什么是程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Java%E7%9A%84%E5%8E%86%E5%8F%B2%E4%B8%8E%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Java的历史与特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Java%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Java的运行机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Java%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 Java的环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 第一个Java程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-1-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.5.1 编写代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-2-%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.2.</span> <span class="nav-text">1.5.2 编译代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-3-%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.5.3.</span> <span class="nav-text">1.5.3 运行程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-4-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.5.4.</span> <span class="nav-text">1.5.4 注意事项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-Java%E7%9A%84%E8%AF%AD%E8%A8%80%E8%A7%84%E8%8C%83"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 Java的语言规范</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-1-%E6%B3%A8%E9%87%8A"><span class="nav-number">1.6.1.</span> <span class="nav-text">1.6.1 注释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-2-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.6.2.</span> <span class="nav-text">1.6.2 关键字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-3-%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">1.6.3.</span> <span class="nav-text">1.6.3 标识符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%EF%BC%8CJava%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二，Java的基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%B8%B8%E9%87%8F"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 基本数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 引用数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 转义字符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%8F%98%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-%E5%8F%98%E9%87%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 变量的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 变量的定义</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-1-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.4.1 算术运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-2-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.4.2 赋值运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-3-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.3.</span> <span class="nav-text">2.4.3 逻辑运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-4-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.4.</span> <span class="nav-text">2.4.4 关系运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-5-%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.4.5.</span> <span class="nav-text">2.4.5 三元运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-6-%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="nav-number">2.4.6.</span> <span class="nav-text">2.4.6 位运算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 数据类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-1-%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.5.1 自动类型转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-2-%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.5.2 强制类型转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-3-char%E7%9A%84%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.3.</span> <span class="nav-text">2.5.3 char的类型转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%EF%BC%8CRandom%E3%80%81Scanner"><span class="nav-number">3.</span> <span class="nav-text">三，Random、Scanner</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Random"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Random</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Scanner"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Scanner</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sweeney Zhou</p>
+  <div class="site-description" itemprop="description">探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:sweeneyzhou@gmail.com" title="E-Mail → mailto:sweeneyzhou@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sweeney Zhou</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>

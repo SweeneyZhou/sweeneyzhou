@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sweeneyzhou.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一，概念 集合是一种容器 特点：  集合的长度是可变的 同一个集合中可以存储不同数据类型的值 可以通过泛型来明确集合中存储的数据类型，一旦指定了泛型，那么该集合就只能存储这种数据类型了 集合找那个只能存储引用数据类型，不能存储基本数据类型，如果要在集合中存储基本数据类型，要使用基本数据类型的包装类   二，集合的体系 Collection：集合的顶层父接口，提供了集合的基本操作 List：接口，有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集合">
+<meta property="og:url" content="https://sweeneyzhou.github.io/2021-04-21-10%EF%BC%8C%E9%9B%86%E5%90%88.html">
+<meta property="og:site_name" content="格物志">
+<meta property="og:description" content="一，概念 集合是一种容器 特点：  集合的长度是可变的 同一个集合中可以存储不同数据类型的值 可以通过泛型来明确集合中存储的数据类型，一旦指定了泛型，那么该集合就只能存储这种数据类型了 集合找那个只能存储引用数据类型，不能存储基本数据类型，如果要在集合中存储基本数据类型，要使用基本数据类型的包装类   二，集合的体系 Collection：集合的顶层父接口，提供了集合的基本操作 List：接口，有">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T01:01:41.835Z">
+<meta property="article:modified_time" content="2021-04-21T01:17:33.786Z">
+<meta property="article:author" content="Sweeney Zhou">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="集合">
+<meta property="article:tag" content="Collection">
+<meta property="article:tag" content="List">
+<meta property="article:tag" content="ArrayList">
+<meta property="article:tag" content="LinkedList">
+<meta property="article:tag" content="Set">
+<meta property="article:tag" content="HashSet">
+<meta property="article:tag" content="TreeSet">
+<meta property="article:tag" content="LinkedHashSet">
+<meta property="article:tag" content="Map">
+<meta property="article:tag" content="HashMap">
+<meta property="article:tag" content="迭代器">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sweeneyzhou.github.io/2021-04-21-10%EF%BC%8C%E9%9B%86%E5%90%88.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>集合 | 格物志</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="格物志" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">格物志</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">格物致知 知行合一</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sweeneyzhou.github.io/2021-04-21-10%EF%BC%8C%E9%9B%86%E5%90%88.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sweeney Zhou">
+      <meta itemprop="description" content="探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="格物志">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          集合
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-21 09:01:41 / 修改时间：09:17:33" itemprop="dateCreated datePublished" datetime="2021-04-21T09:01:41+08:00">2021-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">后端编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一，概念"><a href="#一，概念" class="headerlink" title="一，概念"></a>一，概念</h3><blockquote>
+<p>集合是一种容器</p>
+<p>特点：</p>
+<ol>
+<li>集合的长度是可变的</li>
+<li>同一个集合中可以存储不同数据类型的值</li>
+<li>可以通过泛型来明确集合中存储的数据类型，一旦指定了泛型，那么该集合就只能存储这种数据类型了</li>
+<li>集合找那个只能存储引用数据类型，不能存储基本数据类型，如果要在集合中存储基本数据类型，要使用基本数据类型的包装类</li>
+</ol>
+</blockquote>
+<h3 id="二，集合的体系"><a href="#二，集合的体系" class="headerlink" title="二，集合的体系"></a>二，集合的体系</h3><blockquote>
+<p>Collection：集合的顶层父接口，提供了集合的基本操作</p>
+<p>List：接口，有序可重复</p>
+<p>​    ArrayList：数组结构</p>
+<p>​    LinkedList：链表结构</p>
+<p>Set：接口，不可重复</p>
+<p>​    HashSet：哈希表</p>
+<p>​    TreeSet：树形结构</p>
+<p>​    LinkedHashSet：链表+哈希表</p>
+</blockquote>
+<h3 id="三，List集合"><a href="#三，List集合" class="headerlink" title="三，List集合"></a>三，List集合</h3><blockquote>
+<p>概念：List 集合是Collection 接口的一个子接口</p>
+<p>特点：</p>
+<ol>
+<li>允许重复元素</li>
+<li>有序的集合</li>
+</ol>
+</blockquote>
+<h4 id="3-1-ArrayList-集合"><a href="#3-1-ArrayList-集合" class="headerlink" title="3.1 ArrayList 集合"></a>3.1 ArrayList 集合</h4><blockquote>
+<p>概念：ArrayList 集合是 List 接口的一个数组结构的实现类。有序可重复。</p>
+</blockquote>
+<blockquote>
+<p>构造函数：</p>
+<ol>
+<li>new ArrayList()：构造一个初始容量为 10 的空列表</li>
+<li>new ArrayList(int capacity)：构造一个具有指定初始容量的空列表</li>
+<li>new ArrayList(Collection&lt;? extends E&gt; c)：根据参数集合构造一个新集合，参数集合的泛型必须是当前所创建集合泛型的类型或它的子类（设置泛型的上限）</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>常用方法：</p>
+<ol>
+<li>add(E e)：将元素添加到集合的末尾，返回布尔值；如果是 List 的 add() 返回值一定是 true，如果是 Set 的add() ，当元素已存在时会返回 false    </li>
+<li>add(int index,  E e)：将元素添加集合中的指定位置，返回 void</li>
+<li>remove(E e)：从集合中移除指定对象，返回是否移除成功的布尔值</li>
+<li>remove(int index)：从集合中移除指定位置上的对象，返回被移除的对象</li>
+<li>set(int index, E e)：用指定元素替换集合中指定位置上的元素</li>
+<li>get(int index)：通过下标返回元素</li>
+<li>size()：返回集合的大小</li>
+<li>addAll(Collecrtion c)</li>
+<li>addAll(int index, Collection c)</li>
+<li>containsAll(Collection c)：判断参数集合中的所有元素是否都存在于调用者集合中</li>
+<li>a . retainAll( b )：将 a、b两个集合的交集替换掉 a 集合中的所有元素，返回 true 表示 a 集合发生了改变</li>
+<li>a . removeAll( b )：从 a 集合中移除 a、b 集合的交集，返回 true 表示 a 集合发生了改变</li>
+<li>clear()</li>
+<li>contains(E e)</li>
+<li>indexOf(Object o)</li>
+<li>lastIndexOf(Object o)</li>
+<li>isEmpty()</li>
+</ol>
+</blockquote>
+<h4 id="3-2-LinkedList-集合"><a href="#3-2-LinkedList-集合" class="headerlink" title="3.2 LinkedList 集合"></a>3.2 LinkedList 集合</h4><blockquote>
+<p>概念：LinkedList 集合是 List 接口的一个实现类，它的存储结构是链表结构，LinkedList 的特点是增删快，查询慢。</p>
+</blockquote>
+<blockquote>
+<p>注：在 ArrayList 中所具备的方法，在 LinkedList 中都有，如果想要调用 LinkedList 中的特有方法，不可以使用多态的形式创建 LinkedList 对象。</p>
+<p>LinkedList 的特有方法：</p>
+<ol>
+<li>addFirst(E e)</li>
+<li>addLast(E e)</li>
+<li>remove()</li>
+<li>removeFirst()</li>
+<li>removeLast()</li>
+<li>peek()</li>
+<li>peekFirst()</li>
+<li>peekLast()</li>
+<li>pop()</li>
+<li>poll()</li>
+<li>push(E e)</li>
+</ol>
+</blockquote>
+<h3 id="四，Set-集合"><a href="#四，Set-集合" class="headerlink" title="四，Set 集合"></a>四，Set 集合</h3><blockquote>
+<p>概念：Set 集合是Collection 接口的一个子接口</p>
+<p>特点：</p>
+<ol>
+<li>不允许重复元素</li>
+<li>没有下标，没有使用下标作为参数的相关方法，因此 Set 集合不能使用普通for循环遍历</li>
+</ol>
+</blockquote>
+<h4 id="4-1-HashSet-集合"><a href="#4-1-HashSet-集合" class="headerlink" title="4.1 HashSet 集合"></a>4.1 HashSet 集合</h4><blockquote>
+<p>概念：HashSet 集合 Set 接口的一个实现类</p>
+<p>特点：</p>
+<ol>
+<li>无序，存取顺序不保证一致</li>
+<li>不允许有重复元素</li>
+<li>没有下标，没有使用下标作为参数的相关方法，因此 Set 集合不能使用普通for循环遍历</li>
+<li>底层的数据结构是哈希表，哈希表的特点是查询快<ol>
+<li>java8之前，哈希表 = 数组 + 链表</li>
+<li>java8及之后，哈希表 = 数组 + 链表（当链表的长度超过8个时，链表会转换成红黑树）</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>存储原理：</p>
+<p>向HashSet存储数据时，会判断集合中是否已经存在与要存储的数据具有相同哈希值的元素，如果没有，则直接存储。如果有，则会使用equals来比较，如果结果为true，则不存储，结果为false，则存储。</p>
+</blockquote>
+<blockquote>
+<p>构造函数：</p>
+<ol>
+<li>new HashSet()：构造一个初始容量为 16 的空列表</li>
+<li>new HashSet(int capacity)：构造一个具有指定初始容量的空列表</li>
+<li>new HashSet(Collection&lt;? extends E&gt; c)：根据参数集合构造一个新集合，参数集合的泛型必须是当前所创建集合泛型的类型或它的子类（设置泛型的上限）</li>
+</ol>
+</blockquote>
+<h4 id="4-2-TreeSet-集合"><a href="#4-2-TreeSet-集合" class="headerlink" title="4.2 TreeSet 集合"></a>4.2 TreeSet 集合</h4><blockquote>
+<p>概念：TreeSet 是 Set 接口的一个实现类</p>
+<p>特点：</p>
+<ol>
+<li>无序，存取顺序不保证一致</li>
+<li>不允许有重复元素</li>
+<li>没有下标，没有使用下标作为参数的相关方法，因此 Set 集合不能使用普通for循环遍历</li>
+<li>能实现自动排序</li>
+</ol>
+<p>注：</p>
+<ol>
+<li><p>如果TreeSet中存储的是自定义数据类型，那么该类必须实现Comparable接口，否则会发生 ClassCastException</p>
+</li>
+<li><p>如果自定义的排序方式中属性的差值为0，那么在TreeSet中会视为是同一个对象，由于Set不能存储重复元素，因此只会存储一个。</p>
+</li>
+</ol>
+<p>解决办法：</p>
+<ol>
+<li>多条件的排序，第一个条件相同时，对第二个条件进行排序</li>
+<li>使用允许存储重复元素的List集合，实现 Comparable 接口，重写 compareTo() 方法，使用 Collections 的sort() 方法进行排序</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>构造函数：</p>
+<ol>
+<li><p>new TreeSet()：构造一个新的空 set，该 set 根据其元素的自然顺序进行排序</p>
+</li>
+<li><p>new TreeSet(Comparator c)：构造一个新的空 TreeSet，它根据指定比较器进行排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TreeSet&lt;Doctor&gt; ds = <span class="keyword">new</span> TreeSet&lt;Doctor&gt;(<span class="keyword">new</span> Comparator&lt;Doctor&gt;()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Doctor d1,Doctor d2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> d2.num - d1.num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>new TreeSet(Collection&lt;? extends E&gt; c)：根据参数集合构造一个新集合，参数集合的泛型必须是当前所创建集合泛型的类型或它的子类（设置泛型的上限）</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="4-3-LinkedHashSet-集合"><a href="#4-3-LinkedHashSet-集合" class="headerlink" title="4.3 LinkedHashSet 集合"></a>4.3 LinkedHashSet 集合</h4><blockquote>
+<p>概念：LinkedHashSet 是 Set 接口的一个实现类</p>
+<p>特点：</p>
+<ol>
+<li><p>LinkedHashSet 的数据结构是哈希表加上链表，它在 HashSet 的基础上添加了一条链表来保存元素的存储顺序，因此 LinkedHashSet 的有序的</p>
+</li>
+<li><p>有序，保证存取顺序一致</p>
+</li>
+<li><p>没有下标，没有使用下标作为参数的相关方法，因此 Set 集合不能使用普通for循环遍历</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>构造函数：</p>
+<ol>
+<li>new LinkedHashSet()：构造一个初始容量为 16 的空列表</li>
+<li>new LinkedHashSet(int capacity)：构造一个具有指定初始容量的空列表</li>
+<li>new LinkedHashSet(Collection&lt;? extends E&gt; c)：根据参数集合构造一个新集合，参数集合的泛型必须是当前所创建集合泛型的类型或它的子类（设置泛型的上限）</li>
+</ol>
+</blockquote>
+<h3 id="五，迭代器"><a href="#五，迭代器" class="headerlink" title="五，迭代器"></a>五，迭代器</h3><blockquote>
+<p>概念：迭代器是遍历集合元素的通用方法</p>
+<p>原理：先判断是否有下一个可以迭代的元素，如果没有，则不获取，迭代结束；如果有，则获取下一次元素。继续判断。</p>
+<p>可迭代的接口：Iterable，提供了 iterator() 方法用于获取迭代器对象</p>
+<p>迭代器接口：Iterator，提供了两个方法：</p>
+<ol>
+<li>hasNext()：判断集合中是否存在下一个可获取的元素，返回布尔值</li>
+<li>next()：获取下一个元素</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">list.add(<span class="string">&quot;贾宝玉&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;林黛玉&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;薛宝钗&quot;</span>);</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;String&gt; it = list.iterator();it.hasNext();)&#123;</span><br><span class="line">    System.out.println(it.next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<h3 id="六，Collecctions"><a href="#六，Collecctions" class="headerlink" title="六，Collecctions"></a>六，Collecctions</h3><blockquote>
+<p>概念：Collecctions 由在 集合 上进行操作或返回 集合 的静态方法组成。</p>
+<p>常用方法：</p>
+<ol>
+<li><p>addAll(Collection&lt;? super T&gt;     c ，T   …  e)：将可变参数 e 中的所有元素添加到集合 c 中</p>
+</li>
+<li><p>binarySearch(List l，T t)：使用二分搜索法查询集合中指定元素的下标，</p>
+<p>前提是：1.升序排列 2.没有重复元素</p>
+</li>
+<li><p>binarySearch(List l，T t，Comparator c)</p>
+</li>
+<li><p>copy(List a，List b)：将 b 集合中的所有元素赋值到 a 集合从第一个元素开始，如果 a 的长度小于 b 的长度会发生 IndexOutOfBoundsException</p>
+</li>
+<li><p>fill(List l，T … t)：使用 t 替换 集合中的所有元素</p>
+</li>
+<li><p>max(Collection c)：获取集合中最大值</p>
+</li>
+<li><p>min(Collection c)：获取集合中最小值</p>
+<p>如果要获取自定义类型中对象属性的最大最小值，可以使用重载形式：</p>
+<p>max(Collection c，Comparator c)、min(Collection c，Comparator c)</p>
+</li>
+<li><p>replaceAll(List l，T oldValue，T newValue)：使用 newValue 替换 list 中的所有 oldValue</p>
+</li>
+<li><p>*reverse()：倒置</p>
+</li>
+<li><p>*swap(List l，int i，int j)：将集合中下标 i 和下标 j 位置上的元素交换</p>
+</li>
+<li><p>*shuffle(List l)：打乱集合</p>
+</li>
+<li><p>*sort(List l)：字符串和基本类型默认按照字典顺序排序，自定义数据类型的属性排序时需要实现 Comparable 接口</p>
+</li>
+<li><p>*sort(List l，Comparator c)：字符串和基本类型默认按照字典顺序排序，自定义数据类型的属性排序时，需要传入 Comparator 的实现类对象。</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="七，Map"><a href="#七，Map" class="headerlink" title="七，Map"></a>七，Map</h3><h4 id="7-1-概念和特点"><a href="#7-1-概念和特点" class="headerlink" title="7.1 概念和特点"></a>7.1 概念和特点</h4><blockquote>
+<p>Collection 单列集合</p>
+<p>Map 是双列集合，在 Map 中存储元素时，要将一个元素以键值对的一一对应的映射关系存储到集合中</p>
+<p>Map的特点：</p>
+<ol>
+<li>Map 中的一个元素包含两个部分：键（key）、值（value）</li>
+<li>key 和 value 的类型的任意的</li>
+<li>key 是唯一的，value 是可以重复</li>
+<li>Map 中存储的是映射关系，该映射关系由键和对应的值产生</li>
+<li>Map 没有下标</li>
+</ol>
+</blockquote>
+<h4 id="7-2-Map-的方法"><a href="#7-2-Map-的方法" class="headerlink" title="7.2 Map 的方法"></a>7.2 Map 的方法</h4><blockquote>
+<ol>
+<li>put(k，v)：将 k、v形成的键值对添加到集合中，当 key 重复时，返回被替换的 value</li>
+<li>remove(k)：将键所对应的键值对删除，返回被删除的值</li>
+<li>remove(k，v)：只有当k、v的映射关系存在集合于中才会删除</li>
+<li>replace(k，v)：将 v 替换指定 k 上的值</li>
+<li>replace(key，oldValue，newValue)：只有当 key 和 oldValue 的映射关系存在集合于中才会将 newValue 替换掉 oldValue</li>
+<li>get(k)：根据键返回对应的值</li>
+<li>size()：返回集合的大小</li>
+<li>clear()：清空集合</li>
+<li>containsValue(v)：判断是否存在指定的值</li>
+<li>containsKey(k)：判断是否存在指定的键</li>
+<li>isEmpty()：判断集合是否为空</li>
+<li>equals(map)：比较两个 Map 中的元素是否完全相同</li>
+<li>values()：返回 Map 中值组成 Collection 集合</li>
+<li>keySet()：获取 Map 中所有键组成的 Set 集合</li>
+<li>entrySet()：获取 Map 中所有映射关系组成的 Set 集合</li>
+</ol>
+</blockquote>
+<p>z</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+              <a href="/tags/%E9%9B%86%E5%90%88/" rel="tag"># 集合</a>
+              <a href="/tags/Collection/" rel="tag"># Collection</a>
+              <a href="/tags/List/" rel="tag"># List</a>
+              <a href="/tags/ArrayList/" rel="tag"># ArrayList</a>
+              <a href="/tags/LinkedList/" rel="tag"># LinkedList</a>
+              <a href="/tags/Set/" rel="tag"># Set</a>
+              <a href="/tags/HashSet/" rel="tag"># HashSet</a>
+              <a href="/tags/TreeSet/" rel="tag"># TreeSet</a>
+              <a href="/tags/LinkedHashSet/" rel="tag"># LinkedHashSet</a>
+              <a href="/tags/Map/" rel="tag"># Map</a>
+              <a href="/tags/HashMap/" rel="tag"># HashMap</a>
+              <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/" rel="tag"># 迭代器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-04-21-09%EF%BC%8C%E5%B8%B8%E7%94%A8%E7%B1%BB.html" rel="prev" title="常用类">
+      <i class="fa fa-chevron-left"></i> 常用类
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-04-21-11%EF%BC%8C%E6%96%87%E4%BB%B6%E3%80%81IO%E6%B5%81.html" rel="next" title="文件操作、IO流">
+      文件操作、IO流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%EF%BC%8C%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一，概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%EF%BC%8C%E9%9B%86%E5%90%88%E7%9A%84%E4%BD%93%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">二，集合的体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%EF%BC%8CList%E9%9B%86%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">三，List集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-ArrayList-%E9%9B%86%E5%90%88"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 ArrayList 集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-LinkedList-%E9%9B%86%E5%90%88"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 LinkedList 集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%EF%BC%8CSet-%E9%9B%86%E5%90%88"><span class="nav-number">4.</span> <span class="nav-text">四，Set 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-HashSet-%E9%9B%86%E5%90%88"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 HashSet 集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-TreeSet-%E9%9B%86%E5%90%88"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 TreeSet 集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-LinkedHashSet-%E9%9B%86%E5%90%88"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 LinkedHashSet 集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%EF%BC%8C%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">五，迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%EF%BC%8CCollecctions"><span class="nav-number">6.</span> <span class="nav-text">六，Collecctions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%EF%BC%8CMap"><span class="nav-number">7.</span> <span class="nav-text">七，Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-%E6%A6%82%E5%BF%B5%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 概念和特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-Map-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 Map 的方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sweeney Zhou</p>
+  <div class="site-description" itemprop="description">探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:sweeneyzhou@gmail.com" title="E-Mail → mailto:sweeneyzhou@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sweeney Zhou</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>

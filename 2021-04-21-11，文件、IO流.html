@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sweeneyzhou.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一，File1.1 概念 概念：文件和目录路径名的抽象表示形式。   1.2 构造函数  new File(String path) new File(File parent，String path) new File(String parent，String path)  字段摘要： File.separator：与系统有关的默认名称分隔符，为了方便，它被表示为一个字符串。  1.3 常用方法1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件操作、IO流">
+<meta property="og:url" content="https://sweeneyzhou.github.io/2021-04-21-11%EF%BC%8C%E6%96%87%E4%BB%B6%E3%80%81IO%E6%B5%81.html">
+<meta property="og:site_name" content="格物志">
+<meta property="og:description" content="一，File1.1 概念 概念：文件和目录路径名的抽象表示形式。   1.2 构造函数  new File(String path) new File(File parent，String path) new File(String parent，String path)  字段摘要： File.separator：与系统有关的默认名称分隔符，为了方便，它被表示为一个字符串。  1.3 常用方法1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T01:01:41.864Z">
+<meta property="article:modified_time" content="2021-04-21T01:26:34.666Z">
+<meta property="article:author" content="Sweeney Zhou">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="File">
+<meta property="article:tag" content="IO">
+<meta property="article:tag" content="流">
+<meta property="article:tag" content="InputStream">
+<meta property="article:tag" content="OutputStream">
+<meta property="article:tag" content="文件输入输出流">
+<meta property="article:tag" content="FileOutputStream">
+<meta property="article:tag" content="FileInputStream">
+<meta property="article:tag" content="FileWriter">
+<meta property="article:tag" content="FileReader">
+<meta property="article:tag" content="缓冲流">
+<meta property="article:tag" content="BufferedInputStream">
+<meta property="article:tag" content="BufferedOutputStream">
+<meta property="article:tag" content="BufferedReader">
+<meta property="article:tag" content="BufferedWriter">
+<meta property="article:tag" content="对象流">
+<meta property="article:tag" content="ObjectInputStream">
+<meta property="article:tag" content="ObjectOutputStream">
+<meta property="article:tag" content="序列化">
+<meta property="article:tag" content="序列化接口">
+<meta property="article:tag" content="Serializable">
+<meta property="article:tag" content="瞬态">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sweeneyzhou.github.io/2021-04-21-11%EF%BC%8C%E6%96%87%E4%BB%B6%E3%80%81IO%E6%B5%81.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>文件操作、IO流 | 格物志</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="格物志" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">格物志</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">格物致知 知行合一</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sweeneyzhou.github.io/2021-04-21-11%EF%BC%8C%E6%96%87%E4%BB%B6%E3%80%81IO%E6%B5%81.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sweeney Zhou">
+      <meta itemprop="description" content="探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="格物志">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          文件操作、IO流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-21 09:01:41 / 修改时间：09:26:34" itemprop="dateCreated datePublished" datetime="2021-04-21T09:01:41+08:00">2021-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">后端编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一，File"><a href="#一，File" class="headerlink" title="一，File"></a>一，File</h3><h4 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h4><blockquote>
+<p>概念：文件和目录路径名的抽象表示形式。 </p>
+</blockquote>
+<h4 id="1-2-构造函数"><a href="#1-2-构造函数" class="headerlink" title="1.2 构造函数"></a>1.2 构造函数</h4><blockquote>
+<ol>
+<li>new File(String path)</li>
+<li>new File(File parent，String path)</li>
+<li>new File(String parent，String path)</li>
+</ol>
+<p>字段摘要：</p>
+<p>File.separator：与系统有关的默认名称分隔符，为了方便，它被表示为一个字符串。</p>
+</blockquote>
+<h4 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h4><h5 id="1-3-1-创建和删除"><a href="#1-3-1-创建和删除" class="headerlink" title="1.3.1 创建和删除"></a>1.3.1 创建和删除</h5><blockquote>
+<ol>
+<li>createNewFile()：如果指定文件不存在，则创建一个指定文件名的文件，返回 true；如果已存在，则不创建，返回 false</li>
+<li>mkdir()：创建一个文件夹（只能创建单层目录），返回 false 表示创建失败，true 表示成功</li>
+<li>mkdirs()：创建一个文件夹（可以创建多级目录），返回 false 表示创建失败，true 表示成功</li>
+<li>delete()：删除文件或者文件夹，，返回 false 表示删除失败，true 表示成功，如果文件夹中含有内容，那么该文件夹不能删除</li>
+<li>deleteOnExit()：删除文件或者文件夹，在程序运行完毕后执行该删除操作，如果文件夹中含有内容，那么该文件夹不能删除</li>
+</ol>
+</blockquote>
+<h5 id="1-3-2-判断相关"><a href="#1-3-2-判断相关" class="headerlink" title="1.3.2 判断相关"></a>1.3.2 判断相关</h5><blockquote>
+<ol>
+<li>exists()：判断文件或者文件夹是否存在</li>
+<li>isFile()：判断是否是文件</li>
+<li>isDirectory()：判断是否是目录</li>
+</ol>
+<p>注：如果文件或者文件夹不存在，那么无论是判断是文件还是目录返回的都是 false</p>
+<ol start="4">
+<li>canRead()：判断是否可读</li>
+<li>canWrite()：判断是否可写</li>
+<li>canExecute()：判断是否可执行，只有 linux 操作系统下有效</li>
+<li>isHidden()：判断文件或者文件夹是否隐藏</li>
+</ol>
+</blockquote>
+<h5 id="1-3-3-获取相关"><a href="#1-3-3-获取相关" class="headerlink" title="1.3.3 获取相关"></a>1.3.3 获取相关</h5><blockquote>
+<ol>
+<li>getPath()：获取路径，返回结果与创建时的路径表示形式相同</li>
+<li>getAbsolutePath()：获取绝对路径，无论创建时使用的是相对路径还是绝对路径，返回的都是绝对路径</li>
+<li>getParent()：返回父目录的地址，如果是以相对路径的写法创建文件对象，那么返回的结果是null</li>
+<li>getParentFile()：返回父目录文件的对象</li>
+<li>getName()：返回文件名（包含后缀）</li>
+<li>length()：返回文件大小，单位是字节</li>
+</ol>
+</blockquote>
+<h5 id="1-3-4-遍历目录"><a href="#1-3-4-遍历目录" class="headerlink" title="1.3.4 遍历目录"></a>1.3.4 遍历目录</h5><blockquote>
+<ol>
+<li>list()：返回指定目录下所有文件或者文件夹的名字组成的数组</li>
+<li>listFiles()：返回指定目录下所有文件对象组成的数组</li>
+<li>list(FilenameFilter filter)：根据指定的文件名过滤器获取指定文件，将它们的名字组成数组</li>
+<li>listFile(FilenameFilter filter)：根据指定的文件名过滤器获取指定文件，将这些文件对象组成数组</li>
+</ol>
+</blockquote>
+<h4 id="1-4-文件过滤"><a href="#1-4-文件过滤" class="headerlink" title="1.4 文件过滤"></a>1.4 文件过滤</h4><blockquote>
+<ol>
+<li><p>实现 FileNameFilter 接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFilter</span> <span class="keyword">implements</span> <span class="title">FilenameFilter</span></span>&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 参数：</span></span><br><span class="line"><span class="comment">	 * 1.dir：调用listFiles的目录对象</span></span><br><span class="line"><span class="comment">	 * 2.name：当前目录下的所有文件的文件名</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File dir, String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name.endsWith(<span class="string">&quot;mp3&quot;</span>)||name.endsWith(<span class="string">&quot;wma&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>实现 FileFilter 接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">File[] fss = f.listFiles(<span class="keyword">new</span> FileFilter()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File pathname)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pathname.getName().endsWith(<span class="string">&quot;txt&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(fss.length);</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h4 id="1-5-目录的遍历（递归）"><a href="#1-5-目录的遍历（递归）" class="headerlink" title="1.5 目录的遍历（递归）"></a>1.5 目录的遍历（递归）</h4><blockquote>
+<p>递归：在方法中直接或者间接的调用自身</p>
+<p>注：</p>
+<ol>
+<li>递归要有结束的条件，保证递归能够停止，否则会发生 StackOverflowError 栈溢出</li>
+<li>在不断递归的过程中，数据规模要不断减小</li>
+<li>递归的性能较差</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">search</span><span class="params">(File dir)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (File file : dir.listFiles()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(file.isFile())&#123;</span><br><span class="line">            <span class="keyword">if</span>(file.getName().endsWith(<span class="string">&quot;txt&quot;</span>))&#123;</span><br><span class="line">                fileList.add(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            search(file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="二，IO流"><a href="#二，IO流" class="headerlink" title="二，IO流"></a>二，IO流</h3><h4 id="2-1-什么是IO流"><a href="#2-1-什么是IO流" class="headerlink" title="2.1 什么是IO流"></a>2.1 什么是IO流</h4><blockquote>
+<p>我们把数据的传输看成是一种数据的流动，按照流向进行划分分为输入流（input）和输出流（output）</p>
+<p>IO流的分类</p>
+<p>根据数据的流向划分：</p>
+<ol>
+<li>输入流：把数据从其他设备读取到内存中（外 -&gt; 内）</li>
+<li>输出流：把数据从内存中写到其他设备上（内 -&gt; 外）</li>
+</ol>
+<p>根据数据的类型划分：</p>
+<ol>
+<li>字节流：以字节为单位，任何文件</li>
+<li>字符流：以字符为单位，文本文件&gt;</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>IO流的顶层父类（抽象类）</p>
+<ol>
+<li>字节输入流：InputStream</li>
+<li>字节输出流：OutputStream</li>
+<li>字符输入流：Reader</li>
+<li>字符输出流：Writer</li>
+</ol>
+</blockquote>
+<h4 id="2-2-FileOutputStream-文件字节输出流"><a href="#2-2-FileOutputStream-文件字节输出流" class="headerlink" title="2.2 FileOutputStream 文件字节输出流"></a>2.2 FileOutputStream 文件字节输出流</h4><blockquote>
+<p>构造方法：</p>
+<ol>
+<li>new FileOutputStream(File f)：根据指定文件对象所指向的文件路径创建文件字节输出流对象</li>
+<li>new FileOutputStream(String name)：根据指定文件路径创建文件字节输出流对象</li>
+<li>new FileOutputStream(File f，boolean b)：功能同上，第二个参数值为 true 时，表示该文件可以续写</li>
+<li>new FileOutputStream(String name，boolean b)：功能同上，第二个参数值为 true 时，表示该文件可以续写</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>常用方法：</p>
+<ol>
+<li>close()：释放资源，如果执行了 close() 方法，那么就不能在写入了</li>
+<li>flush()：刷新缓冲区</li>
+<li>write(int ch)：根据十进制数写入对应的字符</li>
+<li>writer(byte[] b)：写入指定的字节数组，如果要写入字符串，可以通过，字符串的 getBytes() 方法获取对应的字节数组</li>
+<li>writer(byte[] b，int index ，int lenth)：从字节数组中的指定位置获取指定数量的元素写入到文件中</li>
+</ol>
+</blockquote>
+<h4 id="2-3-FileInputStream-文件字节输入流"><a href="#2-3-FileInputStream-文件字节输入流" class="headerlink" title="2.3 FileInputStream 文件字节输入流"></a>2.3 FileInputStream 文件字节输入流</h4><blockquote>
+<p>构造函数</p>
+<ol>
+<li>new FileInputStream(File f)：根据指定文件对象所指向的文件路径创建文件字节输入流对象</li>
+<li>new FileInputStream(String name)：根据指定文件路径创建文件字节输入流对象</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>常用方法</p>
+<ol>
+<li>read()：读取单个字符所对应的十进制数，返回 -1 表示读完了</li>
+<li>read(byte b[]，int a，int b)：从指定文件中的a位置开始，读取b个字符，存储到数组中</li>
+<li>read(byte b[])：从指定文件中读取还未获取到的字符，存储到数组中，返回读取到的有效个数</li>
+<li>close()：释放资源</li>
+</ol>
+</blockquote>
+<h4 id="2-4-FileWriter-文件字符输出流"><a href="#2-4-FileWriter-文件字符输出流" class="headerlink" title="2.4 FileWriter 文件字符输出流"></a>2.4 FileWriter 文件字符输出流</h4><blockquote>
+<p>构造函数</p>
+<ol>
+<li>new FileWriter(File f)</li>
+<li>new FileWriter(String name)</li>
+<li>new FileWriter(File f，boolean b)</li>
+<li>new FileWriter(String name，boolean b)</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>常用方法</p>
+<ol>
+<li>close()：释放资源，执行释放动作前，会先将缓冲区中的数据刷新到的目标位置</li>
+<li>flush()：当使用 write() 方法写入文件时，只是把数据写入到了缓冲区中，需要用 flush() 才能将数据从缓冲区中真正的刷新到目标位置</li>
+<li>write(int ch)</li>
+<li>write(String str)</li>
+<li>write(String str，int index，int length)</li>
+<li>write(char[] ch)</li>
+<li>write(char[] ch，int index，int length)</li>
+</ol>
+</blockquote>
+<h4 id="2-5-FileReader-文件字符输入流"><a href="#2-5-FileReader-文件字符输入流" class="headerlink" title="2.5 FileReader 文件字符输入流"></a>2.5 FileReader 文件字符输入流</h4><blockquote>
+<p>构造函数</p>
+<ol>
+<li>new FileReader(File f)</li>
+<li>new FileReader(String name)</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>常用方法</p>
+<ol>
+<li>read()</li>
+<li>read(char ch[])</li>
+<li>read(char ch[] ，int index，int lenth)</li>
+<li>close()</li>
+</ol>
+</blockquote>
+<h4 id="2-6-缓冲流"><a href="#2-6-缓冲流" class="headerlink" title="2.6 缓冲流"></a>2.6 缓冲流</h4><blockquote>
+<p>概念：也称作高效流，它是对文件流的增强</p>
+<p>效率高的原因：在进行IO操作时，内置一个缓冲区数组，通过缓冲区数组来减少对文件的IO操作次数，从而提高效率。</p>
+<p>分类：</p>
+<ol>
+<li>BufferedReader：字符缓冲输入流</li>
+<li>BufferedWriter：字符缓冲输出流</li>
+<li>BufferedInputStream：字节缓冲输入流</li>
+<li>BufferedOutputStream：字节缓冲输出流</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader br = <span class="keyword">new</span> BufferedReader(Reader r);</span><br><span class="line"></span><br><span class="line">BufferedWriter bw = <span class="keyword">new</span> BufferedWriter(Writer w);</span><br><span class="line"></span><br><span class="line">BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(InputStream is);</span><br><span class="line"></span><br><span class="line">BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(OutputStream os);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>方法：缓冲流中的方法和普通文件流中的方法相同</p>
+<p>特有方法：</p>
+<ol>
+<li>BufferedReader 中 readLine()：读取一整行</li>
+<li>BufferedWriter 中 newLine()：写入一个换行</li>
+</ol>
+</blockquote>
+<h4 id="2-7-对象流（序列化流）"><a href="#2-7-对象流（序列化流）" class="headerlink" title="2.7 对象流（序列化流）"></a>2.7 对象流（序列化流）</h4><blockquote>
+<p>Java 中提供了一种对象的序列化机制，允许将一个对象及其属性持久化到文件中</p>
+<p>序列化：将对象存储到文件中</p>
+<p>反序列化：将文件中的对象解析出来</p>
+<p>ObjectOutputStream</p>
+<p>构造函数：new ObjectOuputStream(OutputStream os)</p>
+<p>ObjectInputStream</p>
+<p>构造函数：new new ObjectInputStream(InputStream is);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Emp e = <span class="keyword">new</span> Emp();</span><br><span class="line">e.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">e.setAge(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;C:\\Users\\86151\\Desktop\\test\\d.txt&quot;</span>);</span><br><span class="line">ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">oos.writeObject(e);</span><br><span class="line"></span><br><span class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;C:\\Users\\86151\\Desktop\\test\\d.txt&quot;</span>);</span><br><span class="line">ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">Emp emp = (Emp)ois.readObject();</span><br><span class="line">System.out.println(emp.getName());</span><br><span class="line">System.out.println(emp.getAge());</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>一个类的对象要被序列化，该类必须实现 Serializable ，该接口是一个标记接口，不需要重写方法，否则会发生 NotSerializableException</li>
+<li>如果读取对象的次数超过了对象的个数会发生 EOFException</li>
+<li>如果不想让某个属性被序列化，需要使用关键字<code>transient</code>(瞬态的)</li>
+</ol>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+              <a href="/tags/File/" rel="tag"># File</a>
+              <a href="/tags/IO/" rel="tag"># IO</a>
+              <a href="/tags/%E6%B5%81/" rel="tag"># 流</a>
+              <a href="/tags/InputStream/" rel="tag"># InputStream</a>
+              <a href="/tags/OutputStream/" rel="tag"># OutputStream</a>
+              <a href="/tags/%E6%96%87%E4%BB%B6%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81/" rel="tag"># 文件输入输出流</a>
+              <a href="/tags/FileOutputStream/" rel="tag"># FileOutputStream</a>
+              <a href="/tags/FileInputStream/" rel="tag"># FileInputStream</a>
+              <a href="/tags/FileWriter/" rel="tag"># FileWriter</a>
+              <a href="/tags/FileReader/" rel="tag"># FileReader</a>
+              <a href="/tags/%E7%BC%93%E5%86%B2%E6%B5%81/" rel="tag"># 缓冲流</a>
+              <a href="/tags/BufferedInputStream/" rel="tag"># BufferedInputStream</a>
+              <a href="/tags/BufferedOutputStream/" rel="tag"># BufferedOutputStream</a>
+              <a href="/tags/BufferedReader/" rel="tag"># BufferedReader</a>
+              <a href="/tags/BufferedWriter/" rel="tag"># BufferedWriter</a>
+              <a href="/tags/%E5%AF%B9%E8%B1%A1%E6%B5%81/" rel="tag"># 对象流</a>
+              <a href="/tags/ObjectInputStream/" rel="tag"># ObjectInputStream</a>
+              <a href="/tags/ObjectOutputStream/" rel="tag"># ObjectOutputStream</a>
+              <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 序列化</a>
+              <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A5%E5%8F%A3/" rel="tag"># 序列化接口</a>
+              <a href="/tags/Serializable/" rel="tag"># Serializable</a>
+              <a href="/tags/%E7%9E%AC%E6%80%81/" rel="tag"># 瞬态</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-04-21-10%EF%BC%8C%E9%9B%86%E5%90%88.html" rel="prev" title="集合">
+      <i class="fa fa-chevron-left"></i> 集合
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-04-21-12%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B.html" rel="next" title="多线程">
+      多线程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%EF%BC%8CFile"><span class="nav-number">1.</span> <span class="nav-text">一，File</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 常用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 创建和删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-%E5%88%A4%E6%96%AD%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 判断相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-3-%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 获取相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-4-%E9%81%8D%E5%8E%86%E7%9B%AE%E5%BD%95"><span class="nav-number">1.3.4.</span> <span class="nav-text">1.3.4 遍历目录</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 文件过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-%E7%9B%AE%E5%BD%95%E7%9A%84%E9%81%8D%E5%8E%86%EF%BC%88%E9%80%92%E5%BD%92%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 目录的遍历（递归）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%EF%BC%8CIO%E6%B5%81"><span class="nav-number">2.</span> <span class="nav-text">二，IO流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AFIO%E6%B5%81"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 什么是IO流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-FileOutputStream-%E6%96%87%E4%BB%B6%E5%AD%97%E8%8A%82%E8%BE%93%E5%87%BA%E6%B5%81"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 FileOutputStream 文件字节输出流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-FileInputStream-%E6%96%87%E4%BB%B6%E5%AD%97%E8%8A%82%E8%BE%93%E5%85%A5%E6%B5%81"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 FileInputStream 文件字节输入流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-FileWriter-%E6%96%87%E4%BB%B6%E5%AD%97%E7%AC%A6%E8%BE%93%E5%87%BA%E6%B5%81"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 FileWriter 文件字符输出流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-FileReader-%E6%96%87%E4%BB%B6%E5%AD%97%E7%AC%A6%E8%BE%93%E5%85%A5%E6%B5%81"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 FileReader 文件字符输入流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-%E7%BC%93%E5%86%B2%E6%B5%81"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 缓冲流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-%E5%AF%B9%E8%B1%A1%E6%B5%81%EF%BC%88%E5%BA%8F%E5%88%97%E5%8C%96%E6%B5%81%EF%BC%89"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 对象流（序列化流）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sweeney Zhou</p>
+  <div class="site-description" itemprop="description">探究事物原理 从中获得理论和智慧 行动时做到行动与理论相互统一</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:sweeneyzhou@gmail.com" title="E-Mail → mailto:sweeneyzhou@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sweeney Zhou</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
