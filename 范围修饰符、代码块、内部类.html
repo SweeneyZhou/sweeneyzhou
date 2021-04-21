@@ -19,13 +19,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"sweeneyzhou.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"sweeneyzhou.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="一，范围修饰符 概念：也叫权限修饰符，修饰成员在代码中的可见性 分类：  public：公共的 protected：受保护的 [default]：默认 private：私有的  范围修饰符只能修饰成员   public &gt; protected &gt; [default] &gt; private 12345		        public          protected">
 <meta property="og:type" content="article">
 <meta property="og:title" content="范围修饰符、代码块、内部类">
-<meta property="og:url" content="https://sweeneyzhou.github.io/2021-04-21-08%EF%BC%8C%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html">
+<meta property="og:url" content="https://sweeneyzhou.top/%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html">
 <meta property="og:site_name" content="格物志">
 <meta property="og:description" content="一，范围修饰符 概念：也叫权限修饰符，修饰成员在代码中的可见性 分类：  public：公共的 protected：受保护的 [default]：默认 private：私有的  范围修饰符只能修饰成员   public &gt; protected &gt; [default] &gt; private 12345		        public          protected">
 <meta property="og:locale" content="zh_CN">
@@ -46,7 +46,7 @@
 <meta property="article:tag" content="匿名内部类">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://sweeneyzhou.github.io/2021-04-21-08%EF%BC%8C%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html">
+<link rel="canonical" href="https://sweeneyzhou.top/%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html">
 
 
 <script id="page-configurations">
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sweeneyzhou.github.io/2021-04-21-08%EF%BC%8C%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html">
+    <link itemprop="mainEntityOfPage" href="https://sweeneyzhou.top/%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -410,11 +410,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021-04-21-07%E3%80%81%E5%B0%81%E8%A3%85%E3%80%81%E7%BB%A7%E6%89%BF%E3%80%81%E5%A4%9A%E6%80%81.html" rel="prev" title="Java的三大特性：封装、继承、多态">
+    <a href="/%E5%B0%81%E8%A3%85%E3%80%81%E7%BB%A7%E6%89%BF%E3%80%81%E5%A4%9A%E6%80%81.html" rel="prev" title="Java的三大特性：封装、继承、多态">
       <i class="fa fa-chevron-left"></i> Java的三大特性：封装、继承、多态
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021-04-21-09%EF%BC%8C%E5%B8%B8%E7%94%A8%E7%B1%BB.html" rel="next" title="常用类">
+    <a href="/%E5%B8%B8%E7%94%A8%E7%B1%BB.html" rel="next" title="常用类">
       常用类 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
