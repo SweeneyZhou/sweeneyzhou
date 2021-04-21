@@ -228,13 +228,6 @@
   </url>
   
   <url>
-    <loc>https://sweeneyzhou.top/tags/%E6%95%B0%E7%BB%84/</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://sweeneyzhou.top/tags/File/</loc>
     <lastmod>2021-04-21</lastmod>
     <changefreq>daily</changefreq>
@@ -459,6 +452,13 @@
   </url>
   
   <url>
+    <loc>https://sweeneyzhou.top/tags/%E6%95%B0%E7%BB%84/</loc>
+    <lastmod>2021-04-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://sweeneyzhou.top/tags/%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6/</loc>
     <lastmod>2021-04-21</lastmod>
     <changefreq>daily</changefreq>
@@ -627,34 +627,6 @@
   </url>
   
   <url>
-    <loc>https://sweeneyzhou.top/tags/%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sweeneyzhou.top/tags/%E5%B0%81%E8%A3%85/</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sweeneyzhou.top/tags/%E7%BB%A7%E6%89%BF/</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sweeneyzhou.top/tags/%E5%A4%9A%E6%80%81/</loc>
-    <lastmod>2021-04-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://sweeneyzhou.top/tags/%E5%B8%B8%E7%94%A8%E7%B1%BB/</loc>
     <lastmod>2021-04-21</lastmod>
     <changefreq>daily</changefreq>
@@ -747,6 +719,34 @@
   
   <url>
     <loc>https://sweeneyzhou.top/tags/%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/</loc>
+    <lastmod>2021-04-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sweeneyzhou.top/tags/%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/</loc>
+    <lastmod>2021-04-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sweeneyzhou.top/tags/%E5%B0%81%E8%A3%85/</loc>
+    <lastmod>2021-04-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sweeneyzhou.top/tags/%E7%BB%A7%E6%89%BF/</loc>
+    <lastmod>2021-04-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sweeneyzhou.top/tags/%E5%A4%9A%E6%80%81/</loc>
     <lastmod>2021-04-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
