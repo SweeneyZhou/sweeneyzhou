@@ -37,28 +37,7 @@
 &lt;p&gt;端口号用于标识计算机中的应用&lt;/p&gt;
 &lt;p&gt;端口号的范围：0~65535&lt;/p&gt;
 &lt;p&gt;格式：ip地址:端口号&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-3-传输协议&quot;&gt;&lt;a href=&quot;#1-3-传输协议&quot; class=&quot;headerlink&quot; title=&quot;1.3 传输协议&quot;&gt;&lt;/a&gt;1.3 传输协议&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;数据在网络中传输时需要遵循的规则&lt;/p&gt;
-&lt;p&gt;在 java.net 包中定义了 UDP、TCP 协议实现数据传输时所需要的类&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h5 id=&quot;1-3-1-UDP&quot;&gt;&lt;a href=&quot;#1-3-1-UDP&quot; class=&quot;headerlink&quot; title=&quot;1.3.1 UDP&quot;&gt;&lt;/a&gt;1.3.1 UDP&lt;/h5&gt;&lt;blockquote&gt;
-&lt;p&gt;UDP：User Datagram Protocol，用户数据报协议&lt;/p&gt;
-&lt;p&gt;特点&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;不建立连接，发送者不会确认接收者是否存在&lt;/li&gt;
-&lt;li&gt;效率高&lt;/li&gt;
-&lt;li&gt;不可靠&lt;/li&gt;
-&lt;li&gt;应用：在线视频&lt;/li&gt;
-&lt;li&gt;代码：在发送数据时，数据必须和目标地址封装在同一个数据包中&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;核心类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;DatagramPacket：数据包，封装了传输的数据，如果是发送者还需要将数据与目标地址都封装在里面&lt;/li&gt;
-&lt;li&gt;DatagramSocket：封装了对数据包的发送和接收的类&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h5 id=&quot;1-3-2-TCP&quot;&gt;&lt;a href=&quot;#1-3-2-TCP&quot; class=&quot;headerlink&quot; title=&quot;1.3.2 TCP&quot;&gt;&lt;/a&gt;1.3.2 TCP&lt;/h5&gt;</summary>
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -122,25 +101,6 @@
 &lt;li&gt;调用 start() 方法开启线程，Java 虚拟机自动调用该线程的 run() 方法。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;注：同一个线程对象不能重复调用 start()，否则会发生 IllegalThreadStateException&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Test&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        MyThread mt = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; MyThread();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mt.start();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        MyThread mt2 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; MyThread();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mt2.start();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MyThread&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Thread&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;i&amp;lt;=&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;i++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            System.out.println(Thread.currentThread().getName()+&lt;span class=&quot;string&quot;&gt;&amp;quot;-----&amp;quot;&lt;/span&gt;+i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;2-2-实现-Runnable-接口&quot;&gt;&lt;a href=&quot;#2-2-实现-Runnable-接口&quot; class=&quot;headerlink&quot; title=&quot;2.2 实现 Runnable 接口&quot;&gt;&lt;/a&gt;2.2 实现 Runnable 接口&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;步骤：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;定义类实现 Runnable 接口&lt;/li&gt;
-&lt;li&gt;重写 run() 方法，在 run() 方法中的功能就是线程要执行的功能&lt;/li&gt;
-&lt;li&gt;创建该实现类的对象&lt;/li&gt;
-&lt;li&gt;创建 Thread 对象，并将实现类的对象作为参数传递给 Thread 的构造函数&lt;/li&gt;
-&lt;li&gt;调用 start() 方法开启线程，Java 虚拟机自动调用该线程的 run() 方法。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Test2&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        MyRunnable mr = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; MyRunnable();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Thread t = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Thread(mr);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        t.start();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Thread t2 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Thread(mr);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        t2.start();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MyRunnable&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Runnable&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;i&amp;lt;=&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;;i++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            System.out.println(Thread.currentThread().getName()+&lt;span class=&quot;string&quot;&gt;&amp;quot;-----&amp;quot;&lt;/span&gt;+i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注：建议优先选用实现 Runnable 的方式，因为避免了单继承的局限性&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     
@@ -195,29 +155,6 @@
 &lt;/ol&gt;
 &lt;p&gt;字段摘要：&lt;/p&gt;
 &lt;p&gt;File.separator：与系统有关的默认名称分隔符，为了方便，它被表示为一个字符串。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-3-常用方法&quot;&gt;&lt;a href=&quot;#1-3-常用方法&quot; class=&quot;headerlink&quot; title=&quot;1.3 常用方法&quot;&gt;&lt;/a&gt;1.3 常用方法&lt;/h4&gt;&lt;h5 id=&quot;1-3-1-创建和删除&quot;&gt;&lt;a href=&quot;#1-3-1-创建和删除&quot; class=&quot;headerlink&quot; title=&quot;1.3.1 创建和删除&quot;&gt;&lt;/a&gt;1.3.1 创建和删除&lt;/h5&gt;&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;createNewFile()：如果指定文件不存在，则创建一个指定文件名的文件，返回 true；如果已存在，则不创建，返回 false&lt;/li&gt;
-&lt;li&gt;mkdir()：创建一个文件夹（只能创建单层目录），返回 false 表示创建失败，true 表示成功&lt;/li&gt;
-&lt;li&gt;mkdirs()：创建一个文件夹（可以创建多级目录），返回 false 表示创建失败，true 表示成功&lt;/li&gt;
-&lt;li&gt;delete()：删除文件或者文件夹，，返回 false 表示删除失败，true 表示成功，如果文件夹中含有内容，那么该文件夹不能删除&lt;/li&gt;
-&lt;li&gt;deleteOnExit()：删除文件或者文件夹，在程序运行完毕后执行该删除操作，如果文件夹中含有内容，那么该文件夹不能删除&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h5 id=&quot;1-3-2-判断相关&quot;&gt;&lt;a href=&quot;#1-3-2-判断相关&quot; class=&quot;headerlink&quot; title=&quot;1.3.2 判断相关&quot;&gt;&lt;/a&gt;1.3.2 判断相关&lt;/h5&gt;&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;exists()：判断文件或者文件夹是否存在&lt;/li&gt;
-&lt;li&gt;isFile()：判断是否是文件&lt;/li&gt;
-&lt;li&gt;isDirectory()：判断是否是目录&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;注：如果文件或者文件夹不存在，那么无论是判断是文件还是目录返回的都是 false&lt;/p&gt;
-&lt;ol start=&quot;4&quot;&gt;
-&lt;li&gt;canRead()：判断是否可读&lt;/li&gt;
-&lt;li&gt;canWrite()：判断是否可写&lt;/li&gt;
-&lt;li&gt;canExecute()：判断是否可执行，只有 linux 操作系统下有效&lt;/li&gt;
-&lt;li&gt;isHidden()：判断文件或者文件夹是否隐藏&lt;/li&gt;
-&lt;/ol&gt;
 &lt;/blockquote&gt;</summary>
     
     
@@ -307,47 +244,7 @@
 &lt;p&gt;​    TreeSet：树形结构&lt;/p&gt;
 &lt;p&gt;​    LinkedHashSet：链表+哈希表&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;三，List集合&quot;&gt;&lt;a href=&quot;#三，List集合&quot; class=&quot;headerlink&quot; title=&quot;三，List集合&quot;&gt;&lt;/a&gt;三，List集合&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;概念：List 集合是Collection 接口的一个子接口&lt;/p&gt;
-&lt;p&gt;特点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;允许重复元素&lt;/li&gt;
-&lt;li&gt;有序的集合&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;3-1-ArrayList-集合&quot;&gt;&lt;a href=&quot;#3-1-ArrayList-集合&quot; class=&quot;headerlink&quot; title=&quot;3.1 ArrayList 集合&quot;&gt;&lt;/a&gt;3.1 ArrayList 集合&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;概念：ArrayList 集合是 List 接口的一个数组结构的实现类。有序可重复。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;构造函数：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;new ArrayList()：构造一个初始容量为 10 的空列表&lt;/li&gt;
-&lt;li&gt;new ArrayList(int capacity)：构造一个具有指定初始容量的空列表&lt;/li&gt;
-&lt;li&gt;new ArrayList(Collection&amp;lt;? extends E&amp;gt; c)：根据参数集合构造一个新集合，参数集合的泛型必须是当前所创建集合泛型的类型或它的子类（设置泛型的上限）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;常用方法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;add(E e)：将元素添加到集合的末尾，返回布尔值；如果是 List 的 add() 返回值一定是 true，如果是 Set 的add() ，当元素已存在时会返回 false    &lt;/li&gt;
-&lt;li&gt;add(int index,  E e)：将元素添加集合中的指定位置，返回 void&lt;/li&gt;
-&lt;li&gt;remove(E e)：从集合中移除指定对象，返回是否移除成功的布尔值&lt;/li&gt;
-&lt;li&gt;remove(int index)：从集合中移除指定位置上的对象，返回被移除的对象&lt;/li&gt;
-&lt;li&gt;set(int index, E e)：用指定元素替换集合中指定位置上的元素&lt;/li&gt;
-&lt;li&gt;get(int index)：通过下标返回元素&lt;/li&gt;
-&lt;li&gt;size()：返回集合的大小&lt;/li&gt;
-&lt;li&gt;addAll(Collecrtion c)&lt;/li&gt;
-&lt;li&gt;addAll(int index, Collection c)&lt;/li&gt;
-&lt;li&gt;containsAll(Collection c)：判断参数集合中的所有元素是否都存在于调用者集合中&lt;/li&gt;
-&lt;li&gt;a . retainAll( b )：将 a、b两个集合的交集替换掉 a 集合中的所有元素，返回 true 表示 a 集合发生了改变&lt;/li&gt;
-&lt;li&gt;a . removeAll( b )：从 a 集合中移除 a、b 集合的交集，返回 true 表示 a 集合发生了改变&lt;/li&gt;
-&lt;li&gt;clear()&lt;/li&gt;
-&lt;li&gt;contains(E e)&lt;/li&gt;
-&lt;li&gt;indexOf(Object o)&lt;/li&gt;
-&lt;li&gt;lastIndexOf(Object o)&lt;/li&gt;
-&lt;li&gt;isEmpty()&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;</summary>
+&lt;h3 id=&quot;三，List集合&quot;&gt;&lt;a href=&quot;#三，List集合&quot; class=&quot;headerlink&quot; title=&quot;三，List集合&quot;&gt;&lt;/a&gt;三，List集合&lt;/h3&gt;</summary>
     
     
     
@@ -433,58 +330,7 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;三，Math&quot;&gt;&lt;a href=&quot;#三，Math&quot; class=&quot;headerlink&quot; title=&quot;三，Math&quot;&gt;&lt;/a&gt;三，Math&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;Math 类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。它在 java.util 包中&lt;/p&gt;
-&lt;p&gt;注：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Math 类是最终类，不能被继承&lt;/li&gt;
-&lt;li&gt;Math 类的构造函数私有化了，其他类无法创建 Math 类的对象&lt;/li&gt;
-&lt;li&gt;Math 类中成员都是静态的&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;静态常量：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;E：自然对数的底数&lt;/li&gt;
-&lt;li&gt;PI：圆周率&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;常用方法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;abs(double d)：求绝对值&lt;/li&gt;
-&lt;li&gt;ceil(double d)：向上取整&lt;/li&gt;
-&lt;li&gt;floor(double d)：向下取整&lt;/li&gt;
-&lt;li&gt;toDegrees(double d)：弧度制转角度制&lt;/li&gt;
-&lt;li&gt;toRadians(double d)：角度制转弧度制&lt;/li&gt;
-&lt;li&gt;sin(double d)：求正弦值，参数是弧度制的&lt;/li&gt;
-&lt;li&gt;acos(double d)：求反余弦值&lt;/li&gt;
-&lt;li&gt;max(double d，double d)：求较大者&lt;/li&gt;
-&lt;li&gt;min(double d，double d)：求较小者&lt;/li&gt;
-&lt;li&gt;pow(double a，double b)：求a的b次方&lt;/li&gt;
-&lt;li&gt;sqrt(double d)：求平方根&lt;/li&gt;
-&lt;li&gt;random()：随机 [0.0，1.0)&lt;/li&gt;
-&lt;li&gt;round(double d)：四舍五入，返回long值&lt;/li&gt;
-&lt;li&gt;rint(double d)：四舍五入，返回double值&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;四，Date&quot;&gt;&lt;a href=&quot;#四，Date&quot; class=&quot;headerlink&quot; title=&quot;四，Date&quot;&gt;&lt;/a&gt;四，Date&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;类 Date 表示特定的瞬间，精确到毫秒，它在 java.util 包中&lt;/p&gt;
-&lt;p&gt;Date类的功能：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;可以将Date对象转换成时间字段&lt;/li&gt;
-&lt;li&gt;可以将Date对象进行格式化和解析&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;构造函数：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;new Date()：获取当前时间&lt;/li&gt;
-&lt;li&gt;new Date(long d)：获取指定时间，从1970 年 1 月 1 日 00:00:00 GMT开始&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;常用方法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;getTime()：返回1970 年 1 月 1 日 00:00:00 到Date对象的所指定的时间&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;</summary>
+&lt;h3 id=&quot;三，Math&quot;&gt;&lt;a href=&quot;#三，Math&quot; class=&quot;headerlink&quot; title=&quot;三，Math&quot;&gt;&lt;/a&gt;三，Math&lt;/h3&gt;</summary>
     
     
     
@@ -557,37 +403,7 @@
 &lt;p&gt;protected：同包中可以访问，子类可以访问（只有其他包中的无关类不能访问）&lt;/p&gt;
 &lt;p&gt;[default]：只能在同包中访问&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;二，代码块&quot;&gt;&lt;a href=&quot;#二，代码块&quot; class=&quot;headerlink&quot; title=&quot;二，代码块&quot;&gt;&lt;/a&gt;二，代码块&lt;/h3&gt;&lt;h4 id=&quot;2-1-概念和分类&quot;&gt;&lt;a href=&quot;#2-1-概念和分类&quot; class=&quot;headerlink&quot; title=&quot;2.1 概念和分类&quot;&gt;&lt;/a&gt;2.1 概念和分类&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;概念：&lt;/p&gt;
-&lt;p&gt;使用一对大括号括起来的代码段就是一个代码块&lt;/p&gt;
-&lt;p&gt;分类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;普通代码块&lt;/li&gt;
-&lt;li&gt;静态代码块&lt;/li&gt;
-&lt;li&gt;构造代码块&lt;/li&gt;
-&lt;li&gt;同步代码块 synchronized&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;2-2-普通代码块&quot;&gt;&lt;a href=&quot;#2-2-普通代码块&quot; class=&quot;headerlink&quot; title=&quot;2.2 普通代码块&quot;&gt;&lt;/a&gt;2.2 普通代码块&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;定义在局部位置的代码块&lt;/p&gt;
-&lt;p&gt;注：变量只有在定义它的代码块中才可以使用，代码块结束后，代码块中定义的变量就被释放&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;2-3-静态代码块&quot;&gt;&lt;a href=&quot;#2-3-静态代码块&quot; class=&quot;headerlink&quot; title=&quot;2.3 静态代码块&quot;&gt;&lt;/a&gt;2.3 静态代码块&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;格式：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Emp&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;span class=&quot;comment&quot;&gt;// 静态代码块中的语句&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;特点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;静态代码块最优先执行&lt;/li&gt;
-&lt;li&gt;静态代码块只执行一次&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;作用：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;读取配置文件&lt;/li&gt;
-&lt;li&gt;对静态属性进行初始化&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;注：多个静态代码块会根据书写顺序从上到下依次执行&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
+&lt;h3 id=&quot;二，代码块&quot;&gt;&lt;a href=&quot;#二，代码块&quot; class=&quot;headerlink&quot; title=&quot;二，代码块&quot;&gt;&lt;/a&gt;二，代码块&lt;/h3&gt;&lt;h4 id=&quot;2-1-概念和分类&quot;&gt;&lt;a href=&quot;#2-1-概念和分类&quot; class=&quot;headerlink&quot; title=&quot;2.1 概念和分类&quot;&gt;&lt;/a&gt;2.1 概念和分类&lt;/h4&gt;</summary>
     
     
     
@@ -637,51 +453,7 @@
 &lt;p&gt;生活中的封装：打包、机箱&lt;/p&gt;
 &lt;p&gt;代码中的封装：方法、类、包&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id=&quot;1-2-封装的好处&quot;&gt;&lt;a href=&quot;#1-2-封装的好处&quot; class=&quot;headerlink&quot; title=&quot;1.2 封装的好处&quot;&gt;&lt;/a&gt;1.2 封装的好处&lt;/h4&gt;&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;提高了代码的安全性&lt;/li&gt;
-&lt;li&gt;提高了代码的复用性&lt;/li&gt;
-&lt;li&gt;隐藏了实现的细节&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-3-属性的封装&quot;&gt;&lt;a href=&quot;#1-3-属性的封装&quot; class=&quot;headerlink&quot; title=&quot;1.3 属性的封装&quot;&gt;&lt;/a&gt;1.3 属性的封装&lt;/h4&gt;&lt;blockquote&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Student&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; String name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; age;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println(&lt;span class=&quot;string&quot;&gt;&amp;quot;我叫&amp;quot;&lt;/span&gt;+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.name+&lt;span class=&quot;string&quot;&gt;&amp;quot;，今年&amp;quot;&lt;/span&gt;+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.age+&lt;span class=&quot;string&quot;&gt;&amp;quot;岁&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Test1&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Student s = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Student();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        s.name = &lt;span class=&quot;string&quot;&gt;&amp;quot;张三&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        s.age = &lt;span class=&quot;number&quot;&gt;420&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        s.show();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;上述代码中对age的赋值出现了不合法的数据，所以调用show()方法出现的结果也是不正常的。&lt;/p&gt;
-&lt;p&gt;出现上述情况的原因：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;属性可以通过对象任意调用&lt;/li&gt;
-&lt;li&gt;对属性值没有进行合理性判断&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;解决办法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;通过对属性进行私有化的封装来限制属性的调用&lt;/li&gt;
-&lt;li&gt;需要对属性进行合理性的判断&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;通过对属性进行私有化的封装来限制属性的调用&lt;/p&gt;
-&lt;p&gt;使用关键字&lt;code&gt;private&lt;/code&gt;修饰属性，&lt;code&gt;private&lt;/code&gt;表示私有的，被&lt;code&gt;private&lt;/code&gt;修饰的成员，只能在本类中使用&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;需要对属性进行合理性的判断&lt;/p&gt;
-&lt;p&gt;set方法&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;setAge&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; age)&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    System.out.println(&lt;span class=&quot;string&quot;&gt;&amp;quot;set中的&amp;quot;&lt;/span&gt;+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(age &amp;gt;= &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; age &amp;lt;= &lt;span class=&quot;number&quot;&gt;150&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.age = age;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.age = -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;get方法&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getAge&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    System.out.println(&lt;span class=&quot;string&quot;&gt;&amp;quot;get中的&amp;quot;&lt;/span&gt;+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.age;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;注：如果属性是boolean类型的，那么get方法的方法名会变成isXxx()&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;isSex&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; sex;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;setSex&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; sex)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.sex = sex;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;一个标准的实体类（JavaBean）必须包含：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;私有化的属性&lt;/li&gt;
-&lt;li&gt;对外提供属性的set/get方法&lt;/li&gt;
-&lt;li&gt;空参的构造函数&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;</summary>
+&lt;h4 id=&quot;1-2-封装的好处&quot;&gt;&lt;a href=&quot;#1-2-封装的好处&quot; class=&quot;headerlink&quot; title=&quot;1.2 封装的好处&quot;&gt;&lt;/a&gt;1.2 封装的好处&lt;/h4&gt;</summary>
     
     
     
@@ -737,22 +509,6 @@
 &lt;li&gt;业务层：service、business&lt;/li&gt;
 &lt;li&gt;控制层：controller&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-3-导入&quot;&gt;&lt;a href=&quot;#1-3-导入&quot; class=&quot;headerlink&quot; title=&quot;1.3 导入&quot;&gt;&lt;/a&gt;1.3 导入&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;导包：关键字&lt;code&gt;import&lt;/code&gt;当一个类使用到了其他包中的类时，需要将这个类引入进来&lt;/p&gt;
-&lt;p&gt;注：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;同包中的类调用时无需导包&lt;/li&gt;
-&lt;li&gt;lang包中的类无需导入&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/*import java.util.ArrayList;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;import java.util.Arrays;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;import java.util.Random;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;import java.util.Scanner;*/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.util.*;&lt;span class=&quot;comment&quot;&gt;// 通配符，按需导入&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Test1&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注：不同包中有同名的类，需要使用时，可以通过以下方式区别：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.util.Random;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Test1&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        com.qf.test.Random r1 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; com.qf.test.Random();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Random r2 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Random();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        com.qf.entity.Random r3 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt;  com.qf.entity.Random();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;二，静态&quot;&gt;&lt;a href=&quot;#二，静态&quot; class=&quot;headerlink&quot; title=&quot;二，静态&quot;&gt;&lt;/a&gt;二，静态&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;关键字：&lt;code&gt;static&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     
@@ -821,35 +577,6 @@
 &lt;li&gt;面向过程：重点放在程序的功能是如何执行的&lt;/li&gt;
 &lt;li&gt;面向对象：重点放在程序的功能可以找谁来完成&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;三，类和对象&quot;&gt;&lt;a href=&quot;#三，类和对象&quot; class=&quot;headerlink&quot; title=&quot;三，类和对象&quot;&gt;&lt;/a&gt;三，类和对象&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;类：数据类型，一类事物的集合&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;基本信息&lt;/li&gt;
-&lt;li&gt;行为&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;对象：根据类创建出来的一个实体（实例），这个对象具有该类中所有的基本信息和行为&lt;/p&gt;
-&lt;p&gt;根据类创建出来的实体，称为创建对象、也称为实例化&lt;/p&gt;
-&lt;p&gt;例如：&lt;/p&gt;
-&lt;p&gt;类：&lt;/p&gt;
-&lt;p&gt;​    宠物类&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;基本信息：昵称、种类、年龄、性别、价格&lt;/li&gt;
-&lt;li&gt;行为：吃、睡&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;对象：&lt;/p&gt;
-&lt;p&gt;​    宠物对象&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;基本信息：毛毛、田园犬、2、母、3000&lt;/li&gt;
-&lt;li&gt;行为：具体怎么吃、怎么睡&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;代码中：基本信息=&amp;gt;属性、行为=&amp;gt;方法&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;四，类的定义和对象的创建&quot;&gt;&lt;a href=&quot;#四，类的定义和对象的创建&quot; class=&quot;headerlink&quot; title=&quot;四，类的定义和对象的创建&quot;&gt;&lt;/a&gt;四，类的定义和对象的创建&lt;/h3&gt;&lt;h4 id=&quot;4-1-类的定义&quot;&gt;&lt;a href=&quot;#4-1-类的定义&quot; class=&quot;headerlink&quot; title=&quot;4.1 类的定义&quot;&gt;&lt;/a&gt;4.1 类的定义&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;格式：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; 类名&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    属性&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 定义了一个Hero类&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Hero&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 姓名&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; String name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 血量&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; hp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 攻击&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;attack&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println(&lt;span class=&quot;string&quot;&gt;&amp;quot;攻击&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 回城&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;back&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println(&lt;span class=&quot;string&quot;&gt;&amp;quot;回城&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/blockquote&gt;</summary>
     
     
@@ -901,26 +628,7 @@
 &lt;li&gt;方法体：方法中具体功能的实现&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;三，方法的调用&quot;&gt;&lt;a href=&quot;#三，方法的调用&quot; class=&quot;headerlink&quot; title=&quot;三，方法的调用&quot;&gt;&lt;/a&gt;三，方法的调用&lt;/h3&gt;&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;调用本类中的方法&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;方法名(参数);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;调用其他类中的方法&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 如果该方法被static修饰&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;该方法所在类的类名.方法名(参数);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 如果该方法没有被static修饰&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;数据类型 对象名 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; 数据类型();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;对象名.方法名(参数);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;方法被调用后会进入栈内存；方法运行完毕后会从栈内存中释放；栈内存的特点：&lt;code&gt;先进后出&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;方法的定义位置是在类中，其他方法之外的任意位置&lt;/li&gt;
-&lt;li&gt;方法只有在调用后才会执行&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;四，方法的参数&quot;&gt;&lt;a href=&quot;#四，方法的参数&quot; class=&quot;headerlink&quot; title=&quot;四，方法的参数&quot;&gt;&lt;/a&gt;四，方法的参数&lt;/h3&gt;&lt;h4 id=&quot;4-1-形式参数&quot;&gt;&lt;a href=&quot;#4-1-形式参数&quot; class=&quot;headerlink&quot; title=&quot;4.1 形式参数&quot;&gt;&lt;/a&gt;4.1 形式参数&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;定义方法时的参数列表叫形式参数，也叫形参&lt;/p&gt;
-&lt;p&gt;作用：限定了调用时，必须根据形参的个数、类型、顺序来传入参数&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
+&lt;h3 id=&quot;三，方法的调用&quot;&gt;&lt;a href=&quot;#三，方法的调用&quot; class=&quot;headerlink&quot; title=&quot;三，方法的调用&quot;&gt;&lt;/a&gt;三，方法的调用&lt;/h3&gt;</summary>
     
     
     
@@ -980,23 +688,7 @@
 &lt;p&gt;赋值&lt;/p&gt;
 &lt;p&gt;格式：&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;数组名[下标] = 值;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注意事项&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;下标的范围是&lt;code&gt;[0，长度-1]&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;数组长度的获取方式：&lt;code&gt;数组名.length&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;直接打印数组名输出的是数组在内存中的地址，如果输出的是char类型的数组名，输出的是数组中的值&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;数组的工具类Arrays中提供了toString()方法用于将数组以字符串形式返回&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;double&lt;/span&gt;[] dd = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;double&lt;/span&gt;[&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dd[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dd[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dd[&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;] = -&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.println(dd);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 将数组以字符串的形式输出&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.println(Arrays.toString(dd));&lt;span class=&quot;comment&quot;&gt;// 要将哪个数组以字符串返回就将这个数组的名称写在toString()的括号中&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;四，数组的遍历&quot;&gt;&lt;a href=&quot;#四，数组的遍历&quot; class=&quot;headerlink&quot; title=&quot;四，数组的遍历&quot;&gt;&lt;/a&gt;四，数组的遍历&lt;/h3&gt;&lt;h4 id=&quot;4-1-普通循环&quot;&gt;&lt;a href=&quot;#4-1-普通循环&quot; class=&quot;headerlink&quot; title=&quot;4.1 普通循环&quot;&gt;&lt;/a&gt;4.1 普通循环&lt;/h4&gt;&lt;blockquote&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;4-2-增强循环-foreach&quot;&gt;&lt;a href=&quot;#4-2-增强循环-foreach&quot; class=&quot;headerlink&quot; title=&quot;4.2 增强循环(foreach)&quot;&gt;&lt;/a&gt;4.2 增强循环(foreach)&lt;/h4&gt;</summary>
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -1032,24 +724,7 @@
 &lt;h3 id=&quot;一，分支结构&quot;&gt;&lt;a href=&quot;#一，分支结构&quot; class=&quot;headerlink&quot; title=&quot;一，分支结构&quot;&gt;&lt;/a&gt;一，分支结构&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;关键字：if、else&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id=&quot;1-1-单-if-结构&quot;&gt;&lt;a href=&quot;#1-1-单-if-结构&quot; class=&quot;headerlink&quot; title=&quot;1.1 单 if 结构&quot;&gt;&lt;/a&gt;1.1 单 if 结构&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;格式：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(条件表达式)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    语句&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;逻辑：判断条件表达式的结果，结果为true，执行代码块中的语句；反之，不执行&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-2-标准的-if-else-结构&quot;&gt;&lt;a href=&quot;#1-2-标准的-if-else-结构&quot; class=&quot;headerlink&quot; title=&quot;1.2 标准的 if - else 结构&quot;&gt;&lt;/a&gt;1.2 标准的 if - else 结构&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;格式：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(条件表达式)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    语句&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    语句&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;逻辑：判断条件表达式的结果，结果为true，执行if代码块中的语句1；反之，执行else代码块中的语句2&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-3-多条件的-if-else-结构&quot;&gt;&lt;a href=&quot;#1-3-多条件的-if-else-结构&quot; class=&quot;headerlink&quot; title=&quot;1.3 多条件的 if - else 结构&quot;&gt;&lt;/a&gt;1.3 多条件的 if - else 结构&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;格式：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(条件&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    语句&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(条件&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    语句&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(条件&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    语句&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;逻辑：依次判断每一个条件表达式，一旦有一个条件表达式的结果为true时，执行对应的代码块，其他条件表达式不再判断&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
+&lt;h4 id=&quot;1-1-单-if-结构&quot;&gt;&lt;a href=&quot;#1-1-单-if-结构&quot; class=&quot;headerlink&quot; title=&quot;1.1 单 if 结构&quot;&gt;&lt;/a&gt;1.1 单 if 结构&lt;/h4&gt;</summary>
     
     
     
@@ -1091,29 +766,7 @@
 &lt;li&gt;安全性&lt;/li&gt;
 &lt;li&gt;健壮性&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-3-Java的运行机制&quot;&gt;&lt;a href=&quot;#1-3-Java的运行机制&quot; class=&quot;headerlink&quot; title=&quot;1.3 Java的运行机制&quot;&gt;&lt;/a&gt;1.3 Java的运行机制&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;先编译，后运行&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;.java文件（编译）-&amp;gt;.class二进制字节码文件（运行）&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;JDK：Java Development Kit，Java开发工具&lt;/p&gt;
-&lt;p&gt;​    包含：JRE + 类库 + 工具包（编译器、调试工具）&lt;/p&gt;
-&lt;p&gt;JRE：Java Runtime Enviroment，Java运行环境&lt;/p&gt;
-&lt;p&gt;​    包含：JVM + 解释器&lt;/p&gt;
-&lt;p&gt;JVM：Java Vitrual Machine，Java虚拟机&lt;/p&gt;
-&lt;p&gt;​    使用软件在不同的操作系统中，模拟相同的Java运行环境，使Java程序得以运行&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-4-Java的环境搭建&quot;&gt;&lt;a href=&quot;#1-4-Java的环境搭建&quot; class=&quot;headerlink&quot; title=&quot;1.4 Java的环境搭建&quot;&gt;&lt;/a&gt;1.4 Java的环境搭建&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;JDK的下载：&lt;a href=&quot;https://www.oracle.com/java/technologies/javase-downloads.html&quot;&gt;https://www.oracle.com/java/technologies/javase-downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;卸载：控制面板直接卸载即可&lt;/p&gt;
-&lt;p&gt;安装：双击即可，不要安装在有中文的路径下，jdk和jre要保持在同一个目录下&lt;/p&gt;
-&lt;p&gt;环境变量的配置：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;右键“此电脑”，点击“属性”，点击“高级系统设置”，在“高级”标签下，选择“环境变量”&lt;/li&gt;
-&lt;li&gt;在“系统变量”中，点击“新建”，在“变量名”中输入&lt;code&gt;JAVA_HOME&lt;/code&gt;，在“变量值”中输入&lt;code&gt;C:\Program Files\Java\jdk1.8.0_152&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;点击“系统变量”中“Path”，点击“编辑”，添加&lt;code&gt;%JAVA_HOME%\bin&lt;/code&gt;和&lt;code&gt;%JAVA_HOME%\jre\bin&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-5-第一个Java程序&quot;&gt;&lt;a href=&quot;#1-5-第一个Java程序&quot; class=&quot;headerlink&quot; title=&quot;1.5 第一个Java程序&quot;&gt;&lt;/a&gt;1.5 第一个Java程序&lt;/h4&gt;</summary>
+&lt;/blockquote&gt;</summary>
     
     
     

@@ -269,27 +269,6 @@
 <p>端口号的范围：0~65535</p>
 <p>格式：ip地址:端口号</p>
 </blockquote>
-<h4 id="1-3-传输协议"><a href="#1-3-传输协议" class="headerlink" title="1.3 传输协议"></a>1.3 传输协议</h4><blockquote>
-<p>数据在网络中传输时需要遵循的规则</p>
-<p>在 java.net 包中定义了 UDP、TCP 协议实现数据传输时所需要的类</p>
-</blockquote>
-<h5 id="1-3-1-UDP"><a href="#1-3-1-UDP" class="headerlink" title="1.3.1 UDP"></a>1.3.1 UDP</h5><blockquote>
-<p>UDP：User Datagram Protocol，用户数据报协议</p>
-<p>特点</p>
-<ol>
-<li>不建立连接，发送者不会确认接收者是否存在</li>
-<li>效率高</li>
-<li>不可靠</li>
-<li>应用：在线视频</li>
-<li>代码：在发送数据时，数据必须和目标地址封装在同一个数据包中</li>
-</ol>
-<p>核心类：</p>
-<ol>
-<li>DatagramPacket：数据包，封装了传输的数据，如果是发送者还需要将数据与目标地址都封装在里面</li>
-<li>DatagramSocket：封装了对数据包的发送和接收的类</li>
-</ol>
-</blockquote>
-<h5 id="1-3-2-TCP"><a href="#1-3-2-TCP" class="headerlink" title="1.3.2 TCP"></a>1.3.2 TCP</h5>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.html#more" rel="contents">
@@ -402,25 +381,6 @@
 </ol>
 <p>注：同一个线程对象不能重复调用 start()，否则会发生 IllegalThreadStateException</p>
 </blockquote>
-<blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyThread mt = <span class="keyword">new</span> MyThread();</span><br><span class="line">        mt.start();</span><br><span class="line">        MyThread mt2 = <span class="keyword">new</span> MyThread();</span><br><span class="line">        mt2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-----&quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h4 id="2-2-实现-Runnable-接口"><a href="#2-2-实现-Runnable-接口" class="headerlink" title="2.2 实现 Runnable 接口"></a>2.2 实现 Runnable 接口</h4><blockquote>
-<p>步骤：</p>
-<ol>
-<li>定义类实现 Runnable 接口</li>
-<li>重写 run() 方法，在 run() 方法中的功能就是线程要执行的功能</li>
-<li>创建该实现类的对象</li>
-<li>创建 Thread 对象，并将实现类的对象作为参数传递给 Thread 的构造函数</li>
-<li>调用 start() 方法开启线程，Java 虚拟机自动调用该线程的 run() 方法。</li>
-</ol>
-</blockquote>
-<blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyRunnable mr = <span class="keyword">new</span> MyRunnable();</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread(mr);</span><br><span class="line">        t.start();</span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(mr);</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-----&quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>注：建议优先选用实现 Runnable 的方式，因为避免了单继承的局限性</p>
-</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E5%A4%9A%E7%BA%BF%E7%A8%8B.html#more" rel="contents">
@@ -522,29 +482,6 @@
 </ol>
 <p>字段摘要：</p>
 <p>File.separator：与系统有关的默认名称分隔符，为了方便，它被表示为一个字符串。</p>
-</blockquote>
-<h4 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h4><h5 id="1-3-1-创建和删除"><a href="#1-3-1-创建和删除" class="headerlink" title="1.3.1 创建和删除"></a>1.3.1 创建和删除</h5><blockquote>
-<ol>
-<li>createNewFile()：如果指定文件不存在，则创建一个指定文件名的文件，返回 true；如果已存在，则不创建，返回 false</li>
-<li>mkdir()：创建一个文件夹（只能创建单层目录），返回 false 表示创建失败，true 表示成功</li>
-<li>mkdirs()：创建一个文件夹（可以创建多级目录），返回 false 表示创建失败，true 表示成功</li>
-<li>delete()：删除文件或者文件夹，，返回 false 表示删除失败，true 表示成功，如果文件夹中含有内容，那么该文件夹不能删除</li>
-<li>deleteOnExit()：删除文件或者文件夹，在程序运行完毕后执行该删除操作，如果文件夹中含有内容，那么该文件夹不能删除</li>
-</ol>
-</blockquote>
-<h5 id="1-3-2-判断相关"><a href="#1-3-2-判断相关" class="headerlink" title="1.3.2 判断相关"></a>1.3.2 判断相关</h5><blockquote>
-<ol>
-<li>exists()：判断文件或者文件夹是否存在</li>
-<li>isFile()：判断是否是文件</li>
-<li>isDirectory()：判断是否是目录</li>
-</ol>
-<p>注：如果文件或者文件夹不存在，那么无论是判断是文件还是目录返回的都是 false</p>
-<ol start="4">
-<li>canRead()：判断是否可读</li>
-<li>canWrite()：判断是否可写</li>
-<li>canExecute()：判断是否可执行，只有 linux 操作系统下有效</li>
-<li>isHidden()：判断文件或者文件夹是否隐藏</li>
-</ol>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
@@ -656,47 +593,7 @@
 <p>​    TreeSet：树形结构</p>
 <p>​    LinkedHashSet：链表+哈希表</p>
 </blockquote>
-<h3 id="三，List集合"><a href="#三，List集合" class="headerlink" title="三，List集合"></a>三，List集合</h3><blockquote>
-<p>概念：List 集合是Collection 接口的一个子接口</p>
-<p>特点：</p>
-<ol>
-<li>允许重复元素</li>
-<li>有序的集合</li>
-</ol>
-</blockquote>
-<h4 id="3-1-ArrayList-集合"><a href="#3-1-ArrayList-集合" class="headerlink" title="3.1 ArrayList 集合"></a>3.1 ArrayList 集合</h4><blockquote>
-<p>概念：ArrayList 集合是 List 接口的一个数组结构的实现类。有序可重复。</p>
-</blockquote>
-<blockquote>
-<p>构造函数：</p>
-<ol>
-<li>new ArrayList()：构造一个初始容量为 10 的空列表</li>
-<li>new ArrayList(int capacity)：构造一个具有指定初始容量的空列表</li>
-<li>new ArrayList(Collection&lt;? extends E&gt; c)：根据参数集合构造一个新集合，参数集合的泛型必须是当前所创建集合泛型的类型或它的子类（设置泛型的上限）</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>常用方法：</p>
-<ol>
-<li>add(E e)：将元素添加到集合的末尾，返回布尔值；如果是 List 的 add() 返回值一定是 true，如果是 Set 的add() ，当元素已存在时会返回 false    </li>
-<li>add(int index,  E e)：将元素添加集合中的指定位置，返回 void</li>
-<li>remove(E e)：从集合中移除指定对象，返回是否移除成功的布尔值</li>
-<li>remove(int index)：从集合中移除指定位置上的对象，返回被移除的对象</li>
-<li>set(int index, E e)：用指定元素替换集合中指定位置上的元素</li>
-<li>get(int index)：通过下标返回元素</li>
-<li>size()：返回集合的大小</li>
-<li>addAll(Collecrtion c)</li>
-<li>addAll(int index, Collection c)</li>
-<li>containsAll(Collection c)：判断参数集合中的所有元素是否都存在于调用者集合中</li>
-<li>a . retainAll( b )：将 a、b两个集合的交集替换掉 a 集合中的所有元素，返回 true 表示 a 集合发生了改变</li>
-<li>a . removeAll( b )：从 a 集合中移除 a、b 集合的交集，返回 true 表示 a 集合发生了改变</li>
-<li>clear()</li>
-<li>contains(E e)</li>
-<li>indexOf(Object o)</li>
-<li>lastIndexOf(Object o)</li>
-<li>isEmpty()</li>
-</ol>
-</blockquote>
+<h3 id="三，List集合"><a href="#三，List集合" class="headerlink" title="三，List集合"></a>三，List集合</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E9%9B%86%E5%90%88.html#more" rel="contents">
@@ -824,58 +721,7 @@
 </li>
 </ol>
 </blockquote>
-<h3 id="三，Math"><a href="#三，Math" class="headerlink" title="三，Math"></a>三，Math</h3><blockquote>
-<p>Math 类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。它在 java.util 包中</p>
-<p>注：</p>
-<ol>
-<li>Math 类是最终类，不能被继承</li>
-<li>Math 类的构造函数私有化了，其他类无法创建 Math 类的对象</li>
-<li>Math 类中成员都是静态的</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>静态常量：</p>
-<ol>
-<li>E：自然对数的底数</li>
-<li>PI：圆周率</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>常用方法：</p>
-<ol>
-<li>abs(double d)：求绝对值</li>
-<li>ceil(double d)：向上取整</li>
-<li>floor(double d)：向下取整</li>
-<li>toDegrees(double d)：弧度制转角度制</li>
-<li>toRadians(double d)：角度制转弧度制</li>
-<li>sin(double d)：求正弦值，参数是弧度制的</li>
-<li>acos(double d)：求反余弦值</li>
-<li>max(double d，double d)：求较大者</li>
-<li>min(double d，double d)：求较小者</li>
-<li>pow(double a，double b)：求a的b次方</li>
-<li>sqrt(double d)：求平方根</li>
-<li>random()：随机 [0.0，1.0)</li>
-<li>round(double d)：四舍五入，返回long值</li>
-<li>rint(double d)：四舍五入，返回double值</li>
-</ol>
-</blockquote>
-<h3 id="四，Date"><a href="#四，Date" class="headerlink" title="四，Date"></a>四，Date</h3><blockquote>
-<p>类 Date 表示特定的瞬间，精确到毫秒，它在 java.util 包中</p>
-<p>Date类的功能：</p>
-<ol>
-<li>可以将Date对象转换成时间字段</li>
-<li>可以将Date对象进行格式化和解析</li>
-</ol>
-<p>构造函数：</p>
-<ol>
-<li>new Date()：获取当前时间</li>
-<li>new Date(long d)：获取指定时间，从1970 年 1 月 1 日 00:00:00 GMT开始</li>
-</ol>
-<p>常用方法：</p>
-<ol>
-<li>getTime()：返回1970 年 1 月 1 日 00:00:00 到Date对象的所指定的时间</li>
-</ol>
-</blockquote>
+<h3 id="三，Math"><a href="#三，Math" class="headerlink" title="三，Math"></a>三，Math</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E5%B8%B8%E7%94%A8%E7%B1%BB.html#more" rel="contents">
@@ -986,37 +832,7 @@
 <p>protected：同包中可以访问，子类可以访问（只有其他包中的无关类不能访问）</p>
 <p>[default]：只能在同包中访问</p>
 </blockquote>
-<h3 id="二，代码块"><a href="#二，代码块" class="headerlink" title="二，代码块"></a>二，代码块</h3><h4 id="2-1-概念和分类"><a href="#2-1-概念和分类" class="headerlink" title="2.1 概念和分类"></a>2.1 概念和分类</h4><blockquote>
-<p>概念：</p>
-<p>使用一对大括号括起来的代码段就是一个代码块</p>
-<p>分类：</p>
-<ol>
-<li>普通代码块</li>
-<li>静态代码块</li>
-<li>构造代码块</li>
-<li>同步代码块 synchronized</li>
-</ol>
-</blockquote>
-<h4 id="2-2-普通代码块"><a href="#2-2-普通代码块" class="headerlink" title="2.2 普通代码块"></a>2.2 普通代码块</h4><blockquote>
-<p>定义在局部位置的代码块</p>
-<p>注：变量只有在定义它的代码块中才可以使用，代码块结束后，代码块中定义的变量就被释放</p>
-</blockquote>
-<h4 id="2-3-静态代码块"><a href="#2-3-静态代码块" class="headerlink" title="2.3 静态代码块"></a>2.3 静态代码块</h4><blockquote>
-<p>格式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Emp</span> </span>&#123;</span><br><span class="line"> <span class="keyword">static</span>&#123;</span><br><span class="line">     <span class="comment">// 静态代码块中的语句</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>特点：</p>
-<ol>
-<li>静态代码块最优先执行</li>
-<li>静态代码块只执行一次</li>
-</ol>
-<p>作用：</p>
-<ol>
-<li>读取配置文件</li>
-<li>对静态属性进行初始化</li>
-</ol>
-<p>注：多个静态代码块会根据书写顺序从上到下依次执行</p>
-</blockquote>
+<h3 id="二，代码块"><a href="#二，代码块" class="headerlink" title="二，代码块"></a>二，代码块</h3><h4 id="2-1-概念和分类"><a href="#2-1-概念和分类" class="headerlink" title="2.1 概念和分类"></a>2.1 概念和分类</h4>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E8%8C%83%E5%9B%B4%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB.html#more" rel="contents">
@@ -1114,51 +930,7 @@
 <p>生活中的封装：打包、机箱</p>
 <p>代码中的封装：方法、类、包</p>
 </blockquote>
-<h4 id="1-2-封装的好处"><a href="#1-2-封装的好处" class="headerlink" title="1.2 封装的好处"></a>1.2 封装的好处</h4><blockquote>
-<ol>
-<li>提高了代码的安全性</li>
-<li>提高了代码的复用性</li>
-<li>隐藏了实现的细节</li>
-</ol>
-</blockquote>
-<h4 id="1-3-属性的封装"><a href="#1-3-属性的封装" class="headerlink" title="1.3 属性的封装"></a>1.3 属性的封装</h4><blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我叫&quot;</span>+<span class="keyword">this</span>.name+<span class="string">&quot;，今年&quot;</span>+<span class="keyword">this</span>.age+<span class="string">&quot;岁&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student s = <span class="keyword">new</span> Student();</span><br><span class="line">        s.name = <span class="string">&quot;张三&quot;</span>;</span><br><span class="line">        s.age = <span class="number">420</span>;</span><br><span class="line">        s.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上述代码中对age的赋值出现了不合法的数据，所以调用show()方法出现的结果也是不正常的。</p>
-<p>出现上述情况的原因：</p>
-<ol>
-<li>属性可以通过对象任意调用</li>
-<li>对属性值没有进行合理性判断</li>
-</ol>
-<p>解决办法：</p>
-<ol>
-<li>通过对属性进行私有化的封装来限制属性的调用</li>
-<li>需要对属性进行合理性的判断</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol>
-<li><p>通过对属性进行私有化的封装来限制属性的调用</p>
-<p>使用关键字<code>private</code>修饰属性，<code>private</code>表示私有的，被<code>private</code>修饰的成员，只能在本类中使用</p>
-</li>
-<li><p>需要对属性进行合理性的判断</p>
-<p>set方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;set中的&quot;</span>+<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">if</span>(age &gt;= <span class="number">0</span> &amp;&amp; age &lt;= <span class="number">150</span>)&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>get方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;get中的&quot;</span>+<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>注：如果属性是boolean类型的，那么get方法的方法名会变成isXxx()</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(<span class="keyword">boolean</span> sex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>一个标准的实体类（JavaBean）必须包含：</p>
-<ol>
-<li>私有化的属性</li>
-<li>对外提供属性的set/get方法</li>
-<li>空参的构造函数</li>
-</ol>
-</blockquote>
+<h4 id="1-2-封装的好处"><a href="#1-2-封装的好处" class="headerlink" title="1.2 封装的好处"></a>1.2 封装的好处</h4>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E5%B0%81%E8%A3%85%E3%80%81%E7%BB%A7%E6%89%BF%E3%80%81%E5%A4%9A%E6%80%81.html#more" rel="contents">
@@ -1272,22 +1044,6 @@
 <li>业务层：service、business</li>
 <li>控制层：controller</li>
 </ol>
-</blockquote>
-<h4 id="1-3-导入"><a href="#1-3-导入" class="headerlink" title="1.3 导入"></a>1.3 导入</h4><blockquote>
-<p>导包：关键字<code>import</code>当一个类使用到了其他包中的类时，需要将这个类引入进来</p>
-<p>注：</p>
-<ol>
-<li>同包中的类调用时无需导包</li>
-<li>lang包中的类无需导入</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*import java.util.ArrayList;</span></span><br><span class="line"><span class="comment">import java.util.Arrays;</span></span><br><span class="line"><span class="comment">import java.util.Random;</span></span><br><span class="line"><span class="comment">import java.util.Scanner;*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;<span class="comment">// 通配符，按需导入</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>注：不同包中有同名的类，需要使用时，可以通过以下方式区别：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        com.qf.test.Random r1 = <span class="keyword">new</span> com.qf.test.Random();</span><br><span class="line">        Random r2 = <span class="keyword">new</span> Random();</span><br><span class="line">        com.qf.entity.Random r3 = <span class="keyword">new</span>  com.qf.entity.Random();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="二，静态"><a href="#二，静态" class="headerlink" title="二，静态"></a>二，静态</h3><blockquote>
-<p>关键字：<code>static</code></p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
@@ -1417,35 +1173,6 @@
 <li>面向对象：重点放在程序的功能可以找谁来完成</li>
 </ol>
 </blockquote>
-<h3 id="三，类和对象"><a href="#三，类和对象" class="headerlink" title="三，类和对象"></a>三，类和对象</h3><blockquote>
-<p>类：数据类型，一类事物的集合</p>
-<ol>
-<li>基本信息</li>
-<li>行为</li>
-</ol>
-<p>对象：根据类创建出来的一个实体（实例），这个对象具有该类中所有的基本信息和行为</p>
-<p>根据类创建出来的实体，称为创建对象、也称为实例化</p>
-<p>例如：</p>
-<p>类：</p>
-<p>​    宠物类</p>
-<ol>
-<li>基本信息：昵称、种类、年龄、性别、价格</li>
-<li>行为：吃、睡</li>
-</ol>
-<p>对象：</p>
-<p>​    宠物对象</p>
-<ol>
-<li>基本信息：毛毛、田园犬、2、母、3000</li>
-<li>行为：具体怎么吃、怎么睡</li>
-</ol>
-<p>代码中：基本信息=&gt;属性、行为=&gt;方法</p>
-</blockquote>
-<h3 id="四，类的定义和对象的创建"><a href="#四，类的定义和对象的创建" class="headerlink" title="四，类的定义和对象的创建"></a>四，类的定义和对象的创建</h3><h4 id="4-1-类的定义"><a href="#4-1-类的定义" class="headerlink" title="4.1 类的定义"></a>4.1 类的定义</h4><blockquote>
-<p>格式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 类名</span>&#123;</span><br><span class="line">    属性</span><br><span class="line">    方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义了一个Hero类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="comment">// 血量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> hp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 攻击</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;攻击&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回城</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">back</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;回城&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.html#more" rel="contents">
@@ -1556,26 +1283,7 @@
 <li>方法体：方法中具体功能的实现</li>
 </ol>
 </blockquote>
-<h3 id="三，方法的调用"><a href="#三，方法的调用" class="headerlink" title="三，方法的调用"></a>三，方法的调用</h3><blockquote>
-<ol>
-<li><p>调用本类中的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">方法名(参数);</span><br></pre></td></tr></table></figure></li>
-<li><p>调用其他类中的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果该方法被static修饰</span></span><br><span class="line">该方法所在类的类名.方法名(参数);</span><br><span class="line"><span class="comment">// 如果该方法没有被static修饰</span></span><br><span class="line">数据类型 对象名 = <span class="keyword">new</span> 数据类型();</span><br><span class="line">对象名.方法名(参数);</span><br></pre></td></tr></table></figure></li>
-</ol>
-</blockquote>
-<blockquote>
-<p>注：</p>
-<ol>
-<li>方法被调用后会进入栈内存；方法运行完毕后会从栈内存中释放；栈内存的特点：<code>先进后出</code></li>
-<li>方法的定义位置是在类中，其他方法之外的任意位置</li>
-<li>方法只有在调用后才会执行</li>
-</ol>
-</blockquote>
-<h3 id="四，方法的参数"><a href="#四，方法的参数" class="headerlink" title="四，方法的参数"></a>四，方法的参数</h3><h4 id="4-1-形式参数"><a href="#4-1-形式参数" class="headerlink" title="4.1 形式参数"></a>4.1 形式参数</h4><blockquote>
-<p>定义方法时的参数列表叫形式参数，也叫形参</p>
-<p>作用：限定了调用时，必须根据形参的个数、类型、顺序来传入参数</p>
-</blockquote>
+<h3 id="三，方法的调用"><a href="#三，方法的调用" class="headerlink" title="三，方法的调用"></a>三，方法的调用</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%96%B9%E6%B3%95.html#more" rel="contents">
