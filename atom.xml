@@ -6,7 +6,7 @@
   <link href="https://sweeneyzhou.top/atom.xml" rel="self"/>
   
   <link href="https://sweeneyzhou.top/"/>
-  <updated>2021-04-21T01:31:03.735Z</updated>
+  <updated>2021-07-13T06:46:35.865Z</updated>
   <id>https://sweeneyzhou.top/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker更换镜像源</title>
+    <link href="https://sweeneyzhou.top/docker%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F%E6%BA%90.html"/>
+    <id>https://sweeneyzhou.top/docker%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F%E6%BA%90.html</id>
+    <published>2021-07-13T06:34:22.000Z</published>
+    <updated>2021-07-13T06:46:35.865Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Docker更换镜像源"><a href="#Docker更换镜像源" class="headerlink" title="Docker更换镜像源"></a>Docker更换镜像源</h3><blockquote><p>更换docker镜像源，可以加快image访问和下载速度，可以避免或者解决出现连接超时、无法连接等问题。</p></blockquote><h3 id="Docker国内镜像源"><a href="#Docker国内镜像源" class="headerlink" title="Docker国内镜像源"></a>Docker国内镜像源</h3><blockquote><p>docker中国官方</p><p><a href="https://registry.docker-cn.com/">https://registry.docker-cn.com</a></p><p>网易</p><p><a href="http://hub-mirror.c.163.com/">http://hub-mirror.c.163.com</a></p><p>USTC</p><p><a href="http://docker.mirrors.ustc.edu.cn/">http://docker.mirrors.ustc.edu.cn</a></p><p>阿里云(需要千万阿里云官网申请ID)</p><p>http://&lt;你的ID&gt;.mirror.aliyuncs.com</p></blockquote><h3 id="Docker更换镜像源的方法"><a href="#Docker更换镜像源的方法" class="headerlink" title="Docker更换镜像源的方法"></a>Docker更换镜像源的方法</h3><blockquote><p>环境：安装了Docker的Linux CentOS 7</p><p>编辑/etc/docker/daemon.json文件（若不存在则创建）</p></blockquote><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;registry-mirrors&quot;</span><span class="string">:</span>[</span><br><span class="line">         <span class="string">&quot;http://docker.mirrors.ustc.edu.cn&quot;</span>,</span><br><span class="line">         <span class="string">&quot;http://hub-mirror.c.163.com&quot;</span>,</span><br><span class="line">         <span class="string">&quot;http://registry.docker-cn.com&quot;</span></span><br><span class="line">    ] ,</span><br><span class="line">    <span class="string">&quot;insecure-registries&quot;</span><span class="string">:</span>[</span><br><span class="line">       <span class="string">&quot;docker.mirrors.ustc.edu.cn&quot;</span>,</span><br><span class="line">         <span class="string">&quot;registry.docker-cn.com&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;Docker更换镜像源&quot;&gt;&lt;a href=&quot;#Docker更换镜像源&quot; class=&quot;headerlink&quot; title=&quot;Docker更换镜像源&quot;&gt;&lt;/a&gt;Docker更换镜像源&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;更换docker镜像源，可以加快image访问和下载速度，可以避免或者解决出现连接超时、无法连接等问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;Docker国内镜像源&quot;&gt;&lt;a href=&quot;#Docker国内镜像源&quot; class=&quot;headerlink&quot; title=&quot;Docker国内镜像源&quot;&gt;&lt;/a&gt;Docker国内镜像源&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;docker中国官方&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://registry.docker-cn.com/&quot;&gt;https://registry.docker-cn.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;网易&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://hub-mirror.c.163.com/&quot;&gt;http://hub-mirror.c.163.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;USTC&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://docker.mirrors.ustc.edu.cn/&quot;&gt;http://docker.mirrors.ustc.edu.cn&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;阿里云(需要千万阿里云官网申请ID)&lt;/p&gt;
+&lt;p&gt;http://&amp;lt;你的ID&amp;gt;.mirror.aliyuncs.com&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;Docker更换镜像源的方法&quot;&gt;&lt;a href=&quot;#Docker更换镜像源的方法&quot; class=&quot;headerlink&quot; title=&quot;Docker更换镜像源的方法&quot;&gt;&lt;/a&gt;Docker更换镜像源的方法&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="服务器端" scheme="https://sweeneyzhou.top/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF/"/>
+    
+    
+    <category term="Docker" scheme="https://sweeneyzhou.top/tags/Docker/"/>
+    
+    <category term="源" scheme="https://sweeneyzhou.top/tags/%E6%BA%90/"/>
+    
+    <category term="镜像" scheme="https://sweeneyzhou.top/tags/%E9%95%9C%E5%83%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>网络编程</title>
